@@ -1,0 +1,5 @@
+<?php
+
+//FUNCTION TO MANAGE DB REQUESTS
+
+ ?>

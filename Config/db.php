@@ -1,8 +1,10 @@
 <?php
-
 class Db
 {
-    protected static $bdd = null;
+    private static $bdd = null;
+
+    private function __construct() { } // Constructeur en privé pour empecher l'instanciation.
+    private function __clone() { } // Méthode de clonage en privé aussi.
 
     function connect()
 	{
@@ -30,9 +32,8 @@ class Db
 			}
 	}//end function
 
-
 }
-Db::connect();
+$db = Db::connect();
 
 
 

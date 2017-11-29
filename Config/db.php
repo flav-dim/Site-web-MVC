@@ -1,10 +1,10 @@
 <?php
 class Db
 {
-    private static $bdd = null;
+    protected static $bdd = null;
 
-    private function __construct() { } // Constructeur en privé pour empecher l'instanciation.
-    private function __clone() { } // Méthode de clonage en privé aussi.
+    protected function __construct() { } // Constructeur en privé pour empecher l'instanciation.
+    protected function __clone() { } // Méthode de clonage en privé aussi.
 
     function connect()
 	{
@@ -17,7 +17,7 @@ class Db
 			    $dbname = "rush_MVC";
 
 			    self::$bdd = new PDO("mysql:host=$dbhost;port=3306;dbname=$dbname", $dbuser, $dbpass);
-			    echo "Connection sucessful";
+			    // echo "Connection sucessful";
 
 			  }
 
@@ -33,13 +33,7 @@ class Db
 	}//end function
 
 }
-$db = Db::connect();
-
-
-
-
-
-
+Db::connect();
 
 
 

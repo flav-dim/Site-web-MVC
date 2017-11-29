@@ -1,18 +1,30 @@
 <?php
-include_once 'db.php';
+// include_once ('AppController.php');
 //SINGLETON
-class ArticlesController
+class Articles extends AppController
 {
 
-private function __construct() { } // Constructeur en privé pour empecher l'instanciation.
+    public function __construct() { } // Constructeur en privé pour empecher l'instanciation.
 
-//method articles
+    //method articles
+
+    function index(){
+        $d = array();
+        $this->loadModel('Article');
+        $d['articles'] = Article::getLast();
+        $this->set($d);
+        $this->render('index');
 
 
+    }
 
-
-
-
+    function view($id){
+        $d = array();
+        $this->loadModel('Article');
+        $d['article'] = Article::get($id);
+        $this->set($d);
+        $this->render('view');
+    }
 
 
 

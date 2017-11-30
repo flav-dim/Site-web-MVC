@@ -10,11 +10,10 @@ class Articles extends AppController
 
     function index(){
         $d = array();
-        $this->loadModel('Article');
+        $this->loadModel('Article');//fait un require de la page Models/Article
         $d['articles'] = Article::getLast();
-        $this->set($d);
-        $this->render('index');
-
+        $this->set($d);//rajoute dans l'array vars
+        $this->render('index');//inclu les info dans indx
 
     }
 

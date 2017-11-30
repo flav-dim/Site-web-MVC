@@ -1,4 +1,4 @@
     RewriteEngine on
     RewriteBase /PHP_Rush_MVC/
     RewriteRule ^{}$ Webroot/ [L]
-    RewriteRule (.*) Webroot/$1 [L]
+    RewriteRule (.*)/ Webroot/index.php?page=$1 [L]

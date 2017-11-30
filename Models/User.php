@@ -29,12 +29,31 @@ class User extends AppController
 
     }
 
+    public static function login($array){
+        extract($array);
+        $query = Db::connect()->prepare("SELECT * FROM users WHERE email = ? ");
+        $query->execute(array($email));
+        $result = $query->fetch();
+
+        if($result){
+            if(password_verify($password, $result['password'])){
+                $_SESSION['user'] = $result;
+                return true;
+            }
+            setFlashMessage("Wrong Password");
+            return false;
+        }
+        setFlashMessage("Wrong email");
+        return false;
+
+    }
+
     public static function addUser($username, $password, $email, $user_group = 0, $status = false ){
-        $query = $this->model->prepare("INSERT INTO users (username, password, email, user_group, status, creation_date) VALUES (?,?,?,?,?,?)");
+        $query = Db::connect()->prepare("INSERT INTO users (username, password, email, user_group, status, creation_date) VALUES (?,?,?,?,?,?)");
 
         if($query->execute(
             array(
-                $username, $password, $email, $user_group, $status, date('Y-m-d H:i:s')
+                $username, password_hash($password, PASSWORD_DEFAULT), $email, $user_group, $status, date('Y-m-d H:i:s')
                 )
             ) ){
             return true;

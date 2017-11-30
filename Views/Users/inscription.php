@@ -1,7 +1,7 @@
 <h1>Inscription</h1>
-
+<?php displayFlashMessage(); ?>
 <div class="row">
-   <form class="col s12" action="inscription.php" method="post">
+   <form class="col s12" action="<?=RACINE?>/Home/Users/verif/" method="post">
      <div class="row">
        <div class="input-field col s12 m6">
          <input id="username" type="text" class="validate" name="username">

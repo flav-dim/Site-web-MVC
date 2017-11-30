@@ -17,7 +17,11 @@
                     <!-- <a href="index.php" class="brand-logo">super site</a> -->
                     <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li>Home<li>
+                        <li><a href="<?=RACINE?>/Home">Home</a><li>
+                        <li><a href="<?=RACINE?>/Home/Users/newUser/">Inscription</a><li>
+                        <li><a href="<?=RACINE?>/Home/Articles/">Articles</a><li>
+                        <li><a href="<?=RACINE?>/Home/Users/">Users</a><li>
+                        <li><a href="<?=RACINE?>/Home/Users/login/">LogIn</a><li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
 

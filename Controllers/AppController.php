@@ -33,7 +33,12 @@ class AppController
         //the method. So without parameter, we get Views/<nom_du_controller>/<nom_de_l’action>.html.twig
         extract($this->vars);
         ob_start();
-        require ('../Views/'.get_class($this).'/'.$file.'.php');
+        if($file != null){
+            require ('../Views/'.get_class($this).'/'.$file.'.php');
+        } else {
+
+            require (RACINE.'/Home/');    
+        }
 
         $content_for_layout = ob_get_clean();
 

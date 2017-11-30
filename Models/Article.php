@@ -1,11 +1,11 @@
 <?php
-//FUNCTIONs TO MANAGE DB REQUESTS
+//FUNCTIONS TO MANAGE DB REQUESTS
 class Article extends AppController
 {
     protected $table = 'articles';
 
     public static function getLast($num = 5){
-        $query = Db::connect()->prepare("SELECT * FROM articles");
+        $query = Db::connect()->prepare("SELECT * FROM articles");//order by
         $query->execute();
         $result = $query->fetchAll();
 

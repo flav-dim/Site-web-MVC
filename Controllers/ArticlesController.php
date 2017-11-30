@@ -4,8 +4,7 @@
 class Articles extends AppController
 {
 
-    public function __construct() { } // Constructeur en privé pour empecher l'instanciation.
-
+    public function __construct() { }
     //method articles
 
     function index(){

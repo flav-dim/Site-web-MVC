@@ -13,5 +13,21 @@ include_once '../Src/router.php';
 
 // ArticlesController::...
 
+function setFlashMessage($message, $type = 'success' ){
+    $_SESSION['flashMessage']=[
+        'message'=>$message,
+        'type'=> $type,
+    ];
+}
+
+function displayFlashMessage(){
+    if( isset($_SESSION['flashMessage']) ){
+        $type = $_SESSION['flashMessage']['type'] == 'error' ? 'danger': $_SESSION['flashMessage']['type'];
+
+        $alert ='<div class="alert #81d4fa light-blue lighten-3 alert-'.$type.'" statut="alert"><strong>' . $_SESSION['flashMessage']['message'].'</strong></div>';
+            echo $alert;
+            unset($_SESSION['flashMessage']); //supprime le msg une fois affiché
+    }
+}
 
  ?>

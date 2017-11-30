@@ -37,7 +37,7 @@ class AppController
             require ('../Views/'.get_class($this).'/'.$file.'.php');
         } else {
 
-            require (RACINE.'/Home/');    
+            header('Location: '.RACINE.'/Home');    
         }
 
         $content_for_layout = ob_get_clean();

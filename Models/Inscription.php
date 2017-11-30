@@ -8,10 +8,6 @@ class Inscription extends User
         extract($_POST);
         $errors = [];
         $errors[0]= false;
-    //   $username    = $_POST['name'];
-    //   $email   = $_POST['email'];
-    //   $password= $_POST['password'];
-    //   $verif_password= $_POST['password_confirm'];
 
       if(strlen($username) > 10 || strlen($username) < 3){
         $errors[]= "Invalid Name.";
@@ -21,10 +17,10 @@ class Inscription extends User
 
           $errors[] = "Invalid Email.";
       }
-    //   if(User::verify_email($email) ){//Email must be unique
-      //
-    //       $errors[] = "User already exists";
-    //   }
+      if(User::verify_email($email) ){//Email must be unique
+
+          $errors[] = "User already exists";
+      }
       if( (strlen($password) < 8 || strlen($password) > 20) || $password != $password_conf){
 
         $errors[]= "Invalid password or password confirmation.";

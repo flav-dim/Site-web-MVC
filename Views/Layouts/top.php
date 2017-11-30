@@ -18,10 +18,16 @@
                     <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><a href="<?=RACINE?>/Home">Home</a><li>
-                        <li><a href="<?=RACINE?>/Home/Users/newUser/">Inscription</a><li>
                         <li><a href="<?=RACINE?>/Home/Articles/">Articles</a><li>
-                        <li><a href="<?=RACINE?>/Home/Users/">Users</a><li>
+                            <li><a href="<?=RACINE?>/Home/Users/">Users</a><li>
+                            <?php if(!isUserConnected()): ?>
                         <li><a href="<?=RACINE?>/Home/Users/login/">LogIn</a><li>
+                        <li><a href="<?=RACINE?>/Home/Users/newUser/">Inscription</a><li>
+                        <?php else : ?>
+                        <li><a href="<?=RACINE?>/Home/Users/newUser/"><?=ucfirst($_SESSION['user']['username'])?></a><li>
+                        <li><a href="<?=RACINE?>/Home/Users/logout/">Logout</a><li>
+                        <?php endif; ?>
+
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
 
@@ -31,3 +37,4 @@
             </nav>
         </header>
         <div class="container">
+            <?=displayFlashMessage();?>

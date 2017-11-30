@@ -29,21 +29,24 @@ class User extends AppController
 
     }
 
-    public static function login($array){
+    public static function logIn($array){
         extract($array);
         $query = Db::connect()->prepare("SELECT * FROM users WHERE email = ? ");
         $query->execute(array($email));
         $result = $query->fetch();
 
-        if($result){
-            if(password_verify($password, $result['password'])){
+        if(!empty($result)){
+            if( password_verify($password, $result['password']) ){
+                if(isset($remember_me) ){
+                    my_cookie("user", $infoUser);
+                }
                 $_SESSION['user'] = $result;
-                return true;
+                header('Location: '.RACINE.'/Home');
             }
-            setFlashMessage("Wrong Password");
+            echo "Wrong Password";
             return false;
         }
-        setFlashMessage("Wrong email");
+        echo "Wrong email";
         return false;
 
     }
@@ -53,7 +56,7 @@ class User extends AppController
 
         if($query->execute(
             array(
-                $username, password_hash($password, PASSWORD_DEFAULT), $email, $user_group, $status, date('Y-m-d H:i:s')
+                $username, $password, $email, $user_group, $status, date('Y-m-d H:i:s')
                 )
             ) ){
             return true;
@@ -63,7 +66,21 @@ class User extends AppController
 
      }
 
-     public function update($id, $username, $password, $email, $user_group = 0, $status = false)
+     public static function verify_email($email)//checks if the email exists in DB
+     {
+         $query =  Db::connect()->prepare("SELECT email FROM users WHERE email = ?");
+         $query->execute(array($email));
+         $result = $query->fetchColumn();
+
+         if ($result) {
+             return true;//user exists
+         } else {
+             return false;//doesn't exist
+         }
+
+     }
+
+     public static function update($id, $username, $password, $email, $user_group = 0, $status = false)
      {
          $query = $this->model->prepare("UPDATE users SET username = ?, password = ?, email = ?, user_group = ? , status = ?, modif_date = ? WHERE id = ?");
          if(
@@ -73,6 +90,19 @@ class User extends AppController
          } else {
              return false;
          }
+     }
+
+     public static function delete($id){
+        $query = Db::connect()->prepare("DELETE FROM users WHERE id = ?");
+        if ($query->execute(array($id)))
+        {
+            return true;
+        }
+        else
+        {
+           return false;
+        }
+
      }
 }
 

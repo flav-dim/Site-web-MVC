@@ -18,6 +18,7 @@ class Users extends AppController
          $this->loadModel('User');
          $d['user'] = User::get($id);
          $this->set($d);
+         $this->layout = 'super';
          $this->render('view');
      }
 
@@ -47,17 +48,20 @@ class Users extends AppController
      function login(){
          $this->loadModel('User');
          $this->render('login');
-
          if(!empty($_POST)){
+            User::logIn($_POST);//checks input
+         }
 
-            if(User::login($_POST)){//checks input
+     }
+     function logout(){
+         $this->render('logout');
+     }
 
-              $this->render('index');
-              echo "okay";
-
-            }
-            echo "not good";
-
+     function delete(){
+         $this->loadModel('User');
+         if (User::delete($_SESSION['user']['id'])) {
+             setFlashMessage("The account has been deleted");
+             $this->render('logout');//supprime la session et les cookies + renvoi à Home;
          }
 
      }

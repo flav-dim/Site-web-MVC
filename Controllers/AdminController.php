@@ -33,6 +33,13 @@ class Admin extends AppController
         $this->set($d);
         $this->render('categories');//inclu les info dans indx
     }
+    function comments(){
+        $d = array();
+        $this->loadModel('Comment');
+        $d['comments'] = Comment::getAll();
+        $this->set($d);
+        $this->render('comments');//inclu les info dans indx
+    }
 
     function view(){
         $this->render('view');
@@ -40,7 +47,14 @@ class Admin extends AppController
     function newUser(){
         $this->render('inscription');
     }
+    
     function newArticle(){
+        $this->loadModel('Category');
+        $d['categories'] = Category::getAll();
+        $this->set($d);
+        $this->render('add_article');
+    }
+    function updateArticle(){
         $this->loadModel('Category');
         $d['categories'] = Category::getAll();
         $this->set($d);
@@ -48,6 +62,9 @@ class Admin extends AppController
     }
 
     function newCategory(){
+        $this->render('add_category');
+    }
+    function updateCategory(){
         $this->render('add_category');
     }
 

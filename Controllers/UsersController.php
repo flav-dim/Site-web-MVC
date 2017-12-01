@@ -82,6 +82,48 @@ class Users extends AppController
          }
 
      }
+     function updateUser($id){
+         $this->loadModel('User');
+         $d['user'] = User::get($id);
+         $this->set($d);
+         $this->render('updateUser');
+     }
+
+     function verifUpdate(){
+         $this->loadModel('User');
+
+         extract($_POST);
+         $errors = [];
+
+       if(strlen($username) > 10 || strlen($username) < 3){
+         $errors[]= "Invalid Name.";
+       }
+
+       if (!preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', $email)) {
+           $errors[] = "Invalid Email.";
+       }
+       if(User::verify_email_update($email, $id) ){//Email must be unique
+           $errors[] = "User already exists";
+       }
+
+         if ( !isset($user_group) ){
+             $user_group = 0;
+         }
+
+       if(empty($errors) )
+       {
+           $this->loadModel('User');
+           if(User::update($id, $username, $email, $user_group)){
+               setFlashMessage("User modified");
+               toUserManager();
+           }
+         } else {//insert didn't work
+             $message = implode('<br>',$errors);
+             setFlashMessage($message);
+             toUpdateUser($id);//show inscription
+         }
+
+     }
 
      function login(){
          $this->loadModel('User');
@@ -96,15 +138,16 @@ class Users extends AppController
          $this->render('logout');
      }
 
-     function delete(){
+     function delete($id){
          $this->loadModel('User');
-         if (User::delete($_SESSION['user']['id'])) {
-             setFlashMessage("The account has been deleted");
-             $this->render('logout');//supprime la session et les cookies + renvoi à Home;
+         if (User::delete($id)) {
+             setFlashMessage("The user has been deleted");
+             toUserManager();
          }
 
      }
 
+     //$this->render('logout');//supprime la session et les cookies + renvoi à Home;
 
 }
 

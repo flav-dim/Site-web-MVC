@@ -34,4 +34,25 @@
              </div>
            </div>
        </a>
+
+       <a href="<?=RACINE?>/Home/Admin/comments/">
+           <div class="col s12 m4">
+             <div class="card pink lighten-1">
+               <div class="card-content white-text">
+                 <span class="card-title center">Comment Manager</span>
+                 <p>Add, Update and Delete Comments</p>
+               </div>
+             </div>
+           </div>
+       </a>
+       <a href="<?=RACINE?>/Home/Admin/comments/">
+           <div class="col s12 m4">
+             <div class="card green lighten-1">
+               <div class="card-content white-text">
+                 <span class="card-title center">Tag Manager</span>
+                 <p>Add, Update and Delete Tags</p>
+               </div>
+             </div>
+           </div>
+       </a>
 </div>

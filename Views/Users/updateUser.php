@@ -1,21 +1,17 @@
 <?php
 adminSecurity();
  ?>
-<h1>Inscription</h1>
+<h1>Update</h1>
 <div class="row">
-   <form class="col s12" action="<?=RACINE?>/Home/Users/verif/" method="post">
+   <form class="col s12" action="<?=RACINE?>/Home/Users/verifUpdate/" method="post">
      <div class="row">
          <?php
-         Form::input_text('username');
-         Form::input_text('email');
-          ?>
+         foreach ($user as $usr) {
 
-     </div>
-     <div class="row">
-         <?php
-         Form::input_password('password');
-         Form::input_password('password_conf');
-        //  Form::hidden('id');
+             Form::input_text('username', $usr['username']);
+             Form::input_text('email', $usr['email']);
+             Form::hidden('id', $usr['id']);
+        }
           ?>
 
      </div>

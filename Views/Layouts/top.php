@@ -18,10 +18,13 @@
                     <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><a href="<?=RACINE?>/Home">Home</a><li>
-                        <li><a href="<?=RACINE?>/Home/Articles/">Articles</a><li>
-                        <li><a href="<?=RACINE?>/Home/Users/">Users</a><li>
                         <?php if(isUserAdmin()) :?>
-                        <li><a href="<?=RACINE?>/Home/Admin/index/">Aministration</a></li>
+                            <li><a href="<?=RACINE?>/Home/Admin/index/">Aministration</a></li>
+                            <li><a href="<?=RACINE?>/Home/Admin/categories/">Categories</a><li>
+                            <li><a href="<?=RACINE?>/Home/Admin/users/">Users</a><li>
+                        <?php endif; ?>
+                        <?php if(isUserWriter()) :?>
+                            <li><a href="<?=RACINE?>/Home/Admin/articles/">Articles</a><li>
                         <?php endif; ?>
                         <?php if(!isUserConnected()): ?>
                         <li><a href="<?=RACINE?>/Home/Users/login/">LogIn</a><li>

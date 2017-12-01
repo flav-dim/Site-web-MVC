@@ -1,5 +1,5 @@
 <?php
-adminSecurity();
+writerSecurity();
  ?>
 <h1>Add Article</h1>
 <div class="row">
@@ -15,7 +15,7 @@ adminSecurity();
                        <option value="<?=$cat['id']?>"><?=ucfirst($cat['cat_title'])?></option>
                    <?php endforeach; ?>
                </select>
-               <label for="password_conf">Category</label>
+               <label for="category_id">Category</label>
           </div>
 
      </div>

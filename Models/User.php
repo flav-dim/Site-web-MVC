@@ -80,11 +80,25 @@ class User extends AppController
 
      }
 
-     public static function update($id, $username, $password, $email, $user_group = 0, $status = false)
+     public function verify_email_update($email, $id)//checks if the email exists in DB
      {
-         $query = $this->model->prepare("UPDATE users SET username = ?, password = ?, email = ?, user_group = ? , status = ?, modif_date = ? WHERE id = ?");
+         $query =  Db::connect()->prepare("SELECT email FROM users WHERE email = ? AND id != ?");
+         $query->execute(array($email, $id));
+         $result = $query->fetchColumn();
+
+         if ($result) {
+             return true;//email registered
+         } else {
+             return false;//doesn't exist
+         }
+
+     }
+
+     public static function update($id, $username, $email, $user_group, $status = false)
+     {
+         $query = Db::connect()->prepare("UPDATE users SET username = ?, email = ?, user_group = ? , status = ?, modif_date = ? WHERE id = ?");
          if(
-             $query->execute(array($username, $password, $email, $user_group, $status, date('Y-m-d H:i:s'), $id ) )
+             $query->execute(array($username, $email, $user_group, $status, date('Y-m-d H:i:s'), $id ) )
          ){
              return true;
          } else {

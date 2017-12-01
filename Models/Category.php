@@ -54,6 +54,17 @@ class Category extends AppController
 
     }
 
+    public static function delete($id){
+       $query = Db::connect()->prepare("DELETE FROM categories WHERE id = ?");
+       if ($query->execute(array($id)))
+       {
+           return true;
+       } else {
+          return false;
+       }
+
+    }
+
 
 }
 

@@ -1,3 +1,6 @@
+<?php
+adminSecurity();
+ ?>
 <a href="<?=RACINE.'/Home/Admin/newUser/'?>" title="Create User"><button type="button" name="button" class="btn"><i class="material-icons">add</i>New User</button></a>
 <table class="highlight">
     <thead>
@@ -24,7 +27,6 @@
                         case 2:
                             echo "Admin";
                             break;
-
                         default:
                             echo "User";
                             break;
@@ -36,8 +38,9 @@
                 <?php else : ?>
                     <a href="<?=RACINE.'/Home/Admin/desactivate/'.$usr['id']?>/" title="Desactivate User"><i class="material-icons">block</i></a>
                 <?php endif; ?>
-                    <a href="<?=RACINE.'/Home/Admin/update/'.$usr['id']?>/" title="Update User"><i class="material-icons">create</i></a>
-                    <!-- <a href="delete.php?table=users&id="><i class="material-icons">delete</i></a> -->
+                    <a href="<?=RACINE.'/Home/Users/updateUser/'.$usr['id']?>/" title="Update User"><i class="material-icons">create</i></a>
+
+                    <a href="<?=RACINE.'/Home/Users/delete/'.$usr['id']?>/" title="Delete User"><i class="material-icons">delete</i></a>
                 </td>
             </tr>
 

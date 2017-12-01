@@ -11,11 +11,31 @@ function toIndex(){//redirect to index page
     die;
 }
 function toArticleManager(){//redirect to index page
-    header('Location: '.RACINE.'/Home/Articles');
+    header('Location: '.RACINE.'/Home/Admin/articles/');
     die;
 }
 function toCategoryManager(){//redirect to index page
     header('Location: '.RACINE.'/Home/Admin/categories/');
+    die;
+}
+function toCommentManager(){//redirect to index page
+    header('Location: '.RACINE.'/Home/Admin/comments/');
+    die;
+}
+function toView($id){//redirect to index page
+    header('Location: '.RACINE.'/Home/Articles/view/'.$id.'/');
+    die;
+}
+function toUpdateUser($id){//redirect to index page
+    header('Location: '.RACINE.'/Home/Users/updateUser/'.$id.'/');
+    die;
+}
+function toUpdateArticle($id){//redirect to index page
+    header('Location: '.RACINE.'/Home/Articles/updateArticle/'.$id.'/');
+    die;
+}
+function toUpdateCategory($id){//redirect to index page
+    header('Location: '.RACINE.'/Home/Categories/updateCategory/'.$id.'/');
     die;
 }
 // function toUsers(){//redirect to index page
@@ -85,7 +105,12 @@ function displayDate($day, $month, $year){
 
     function adminSecurity(){
         if(!isUserAdmin() ){
-            toIndex();//if not admin go to index if not connected go to login (via index)
+            toIndex();//if not admin go to index
+        }
+    }
+    function writerSecurity(){
+        if(!isUserWriter() ){
+            toIndex();//if not writer go to index
         }
     }
     function my_cookie($name, $value){

@@ -34,7 +34,14 @@ class Categories extends AppController
         } // fin empty $errors
     }
 
+
+    function delete($id){
+        $this->loadModel('Category');
+        if (Category::delete($id)) {
+            setFlashMessage("The Category has been deleted");
+            toCategoryManager();
+        }
+
+    }
 }
-
-
  ?>

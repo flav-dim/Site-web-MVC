@@ -8,17 +8,17 @@ class Form{
     $this->data = $data;
   }
 
-  public static function input_text($a){
+  public static function input_text($a, $val = ""){
         echo '
         <div class="input-field col s12 m6">
-            <input type="text" name="'.$a.'" id="'.$a.'"/>
+            <input type="text" name="'.$a.'" id="'.$a.'" value="'.$val.'"/>
             <label for="'.$a.'">'.ucfirst($a).'</label>
         </div>';
   }
-  public static function input_textarea($a){
+  public static function input_textarea($a, $val = ""){
         echo '
         <div class="input-field col s12 m6">
-            <textarea name="'.$a.'" id="'.$a.'" class="materialize-textarea"></textarea>
+            <textarea name="'.$a.'" id="'.$a.'" class="materialize-textarea" >'.$val.'</textarea>
             <label for="'.$a.'">'.ucfirst($a).'</label>
         </div>';
   }
@@ -39,8 +39,8 @@ class Form{
 
   }
 
-  public static function hidden($a){
-    echo '<input type="hidden" name="'.$a.'"/>';
+  public static function hidden($a, $val){
+    echo '<input type="hidden" name="'.$a.'" value="'.$val.'"/>';
   }
 
 

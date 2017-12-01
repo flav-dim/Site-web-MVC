@@ -47,3 +47,10 @@
      </button>
 </form>
 
+<br>
+
+<form class="col s12" action="<?=RACINE?>/Home/Users/delete/<?=$_SESSION['user']['id']?>/" method="post">
+     <button class="btn waves-effect waves-light" type="submit" name="action">Click to delete your account
+     </button>
+</form>
+

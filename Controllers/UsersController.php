@@ -142,8 +142,18 @@ class Users extends AppController
          $this->loadModel('User');
          if (User::delete($id)) {
              setFlashMessage("The user has been deleted");
+
+        if (isUserAdmin())
+        {
              toUserManager();
-         }
+        }
+
+        else 
+        {
+            $this->logout();
+        }
+          
+       }
 
      }
 

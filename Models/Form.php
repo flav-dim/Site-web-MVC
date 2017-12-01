@@ -15,6 +15,13 @@ class Form{
             <label for="'.$a.'">'.ucfirst($a).'</label>
         </div>';
   }
+  public static function input_textarea($a){
+        echo '
+        <div class="input-field col s12 m6">
+            <textarea name="'.$a.'" id="'.$a.'" class="materialize-textarea"></textarea>
+            <label for="'.$a.'">'.ucfirst($a).'</label>
+        </div>';
+  }
 
   public static function input_button($a){
     echo '<div class="input-field col s12 m6"> <button type="submit" name="'.$a.'"</button> </div>';
@@ -33,7 +40,7 @@ class Form{
   }
 
   public static function hidden($a){
-    echo '<div > <p> <button type="hidden" name="'.$a.'">Submit</button></p> </div>';
+    echo '<input type="hidden" name="'.$a.'"/>';
   }
 
 

@@ -34,10 +34,12 @@ class AppController
         extract($this->vars);
         ob_start();
         if($file != null){
-            require ('../Views/'.get_class($this).'/'.$file.'.php');
-        } else {
+            if(file_exists('../Views/'.get_class($this).'/'.$file.'.php')){
 
-            header('Location: '.RACINE.'/Home');    
+                require ('../Views/'.get_class($this).'/'.$file.'.php');
+            }
+        } else {
+            toIndex();
         }
 
         $content_for_layout = ob_get_clean();
@@ -64,6 +66,12 @@ class AppController
         // You have to use Dispatcher class.
     }
 
+    public static function secure_input($data){
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 
 
 

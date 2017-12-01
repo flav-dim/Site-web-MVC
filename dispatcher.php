@@ -11,18 +11,22 @@ class Dispatcher
 
         $action = isset($params[1]) ? $params[1] : 'index';
 
+        if(file_exists('../Controllers/'.$controller.'Controller.php')){
 
-        require_once('../Controllers/'.$controller.'Controller.php');
+            require_once('../Controllers/'.$controller.'Controller.php');
 
-        $controller = new $controller();
-        if(method_exists($controller, $action) ){
+            $controller = new $controller();
+            if(method_exists($controller, $action) ){
 
-            unset($params[0]);
-            unset($params[1]);
-            
-            call_user_func_array(array($controller, $action), $params);
+                unset($params[0]);
+                unset($params[1]);
+                
+                call_user_func_array(array($controller, $action), $params);
+            } else {
+                echo "error 404";
+            }
         } else {
-            echo "error 404";
+            toIndex();
         }
     }
 

@@ -92,14 +92,29 @@ class User extends AppController
          }
      }
 
+     public static function updateOne($field, $value, $id)
+     {
+         $query = Db::connect()->prepare("UPDATE users SET $field = ? WHERE id = ?");
+         if($query->execute(array($value, $id) ) ){
+             return true;
+         } else {
+             return false;
+         }
+     }
+     public static function isBanned($id){
+         $user = self::get($id);
+         if($user[0]['status']){
+             return true;
+         } else {
+             return false;
+         }
+     }
      public static function delete($id){
         $query = Db::connect()->prepare("DELETE FROM users WHERE id = ?");
         if ($query->execute(array($id)))
         {
             return true;
-        }
-        else
-        {
+        } else {
            return false;
         }
 

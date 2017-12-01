@@ -1,6 +1,33 @@
 <?php
 //ALL CONFIGURATIONS CONCERNING THE PROJECT
 
+//**************************Redirections*************/
+function toLogin(){//redirect to login page
+    header('Location: '.RACINE.'/Home/Users/login/');
+    die;
+}
+function toIndex(){//redirect to index page
+    header('Location: '.RACINE.'/Home');
+    die;
+}
+function toArticleManager(){//redirect to index page
+    header('Location: '.RACINE.'/Home/Articles');
+    die;
+}
+function toCategoryManager(){//redirect to index page
+    header('Location: '.RACINE.'/Home/Admin/categories/');
+    die;
+}
+// function toUsers(){//redirect to index page
+//     header('Location: '.RACINE.'/Home/Users');
+//     die;
+// }
+function toUserManager(){//redirect to index page
+    header('Location: '.RACINE.'/Home/Admin/users/');
+    die;
+}
+
+//**************************Display*************/
 function setFlashMessage($message, $type = 'success' ){
     $_SESSION['flashMessage']=[
         'message'=>$message,
@@ -18,6 +45,24 @@ function displayFlashMessage(){
     }
 }
 
+function displayDate($day, $month, $year){
+        $mois=[
+            1=>'January',
+            2=>'February',
+            3=>'March',
+            4=>'April',
+            5=>'May',
+            6=>'June',
+            7=>'July',
+            8=>'August',
+            9=>'September',
+            10=>'October',
+            11=>'November',
+            12=>'December',
+        ];
+        return $day.' '.$mois[$month].' '.$year;
+    }
+
 /***********************SECURITY**********************/
     function isUserConnected(){//return true if user is connected
         return isset($_SESSION['user']);
@@ -28,9 +73,14 @@ function displayFlashMessage(){
             toLogin();
         }
     }
-
+    // function isBanned($id){
+    //     return
+    // }
     function isUserAdmin(){
         return isUserConnected() && $_SESSION['user']['user_group'] == 2 ;// return if user is admin
+    }
+    function isUserWriter(){
+        return isUserConnected() && ($_SESSION['user']['user_group'] == 1 || $_SESSION['user']['user_group'] == 2) ;// return if user is admin or writer
     }
 
     function adminSecurity(){

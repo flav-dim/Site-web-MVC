@@ -3,6 +3,7 @@
 <?php
 foreach ($article as $art) {
     echo "<h2>".$art['title']."</h2>";
+    echo "<img src='".RACINE."/Webroot/Img/".$art['photo']."' alt='' title ='".$art['title']."' >";
     echo "<p>".$art['content']."</p>";
     echo "<p>".$art['creation_date']."</p>";
 
@@ -33,12 +34,15 @@ foreach ($article as $art) {
 <div class="card">
     <table class="highlight">
         <?php
-        foreach ($comments as $com) {
-            echo "<tr>";
-            echo "<td>".$com['username']."</td>";
-            echo "<td>".$com['com']."</td>";
-            echo "<td>".$com['creation_date']."</td>";
-            echo "<tr>";
+        if($comments){
+
+            foreach ($comments as $com) {
+                echo "<tr>";
+                echo "<td>".$com['username']."</td>";
+                echo "<td>".$com['com']."</td>";
+                echo "<td>".$com['creation_date']."</td>";
+                echo "<tr>";
+            }
         }
         ?>
     </table>

@@ -30,8 +30,16 @@ function toUpdateUser($id){//redirect to index page
     header('Location: '.RACINE.'/Home/Users/updateUser/'.$id.'/');
     die;
 }
+function toAddArticle($id){//redirect to index page
+    header('Location: '.RACINE.'/Home/Admin/newArticle/');
+    die;
+}
 function toUpdateArticle($id){//redirect to index page
     header('Location: '.RACINE.'/Home/Articles/updateArticle/'.$id.'/');
+    die;
+}
+function toAddCategory($id){//redirect to index page
+    header('Location: '.RACINE.'/Home/Admin/newCategory/');
     die;
 }
 function toUpdateCategory($id){//redirect to index page

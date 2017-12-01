@@ -7,6 +7,7 @@ adminSecurity();
         <tr>
             <th>Username</th>
             <th>Email</th>
+            <th>Last Modif</th>
             <th>Group</th>
             <th>Options</th>
         </tr>
@@ -18,6 +19,7 @@ adminSecurity();
             <tr>
                 <td><?=$usr['username']?></td>
                 <td><?=$usr['email']?></td>
+                <td><?=$usr['modif_date']?></td>
                 <td>
                     <?php
                     switch ($usr['user_group']) {

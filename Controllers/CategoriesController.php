@@ -4,7 +4,6 @@ class Categories extends AppController
 {
     protected $table = 'categories';
 
-
     function verif(){
         $this->loadModel('Category');
 
@@ -25,13 +24,15 @@ class Categories extends AppController
             if(Category::addCategory($cat_title) ){
                 setFlashMessage("Category added to database");
                 toCategoryManager();
-            } else {
-                $message = implode($errors);
-                setFlashMessage($message);
-                $this->render('add_category');
             }
 
-        } // fin empty $errors
+        } else {
+            $message = implode('<br>', $errors);
+            setFlashMessage($message);
+            // toAddCategory();
+            header('Location: '.RACINE.'/Home/Admin/newCategory/');
+            die;
+        }// fin empty $errors
     }
 
 

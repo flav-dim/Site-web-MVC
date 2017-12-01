@@ -1,12 +1,16 @@
 <?php
 writerSecurity();
+$title = $content = "";
+if (isset($_POST)) {
+    extract($_POST);
+}
  ?>
 <h1>Add Article</h1>
 <div class="row">
-   <form class="col s12" action="<?=RACINE?>/Home/Articles/verif/" method="post">
+   <form class="col s12" action="<?=RACINE?>/Home/Articles/verif/" method="post" enctype="multipart/form-data">
      <div class="row">
          <?php
-         Form::input_text('title');
+         Form::input_text('title', $title);
           ?>
           <div class="input-field col s12 m6">
                <select name="category_id">
@@ -21,9 +25,21 @@ writerSecurity();
      </div>
      <div class="row">
          <?php
-         Form::input_textarea('content');
+         Form::input_textarea('content', $content);
           ?>
 
+     </div>
+     <div class="file-field input-field s6 m6">
+         <div class="btn">
+             <span>Photo</span>
+             <input type="file" name="photo">
+         </div>
+         <div class="file-path-wrapper">
+             <div class="imgContainer">
+                 <img src="" alt="" class="default">
+             </div>
+             <input class="file-path validate" type="text">
+         </div>
      </div>
 
 

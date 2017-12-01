@@ -4,15 +4,14 @@
 foreach ($articles as $article) {
     echo "
     <div class='row'>
-        <div class='card'>
+        <div class='card col s6'>
             <p>
             <a href='".RACINE."/Home/Articles/view/".$article['id']."/'>"
             .$article['title'].
-            "</a>
+            "<img src='".RACINE."/Webroot/Img/".$article['photo']."' alt='' title ='".$article['title']."' >
+            </a>
             </p>
         </div>
     </div>";
 }
  ?>
-
-<!-- <img src='".RACINE."/Webroot/".$article['photo']."' alt='food image' title ='".$article['title']."' > -->

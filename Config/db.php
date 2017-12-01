@@ -13,7 +13,7 @@ class Db
               try {
 			    $dbhost = "127.0.0.1";
 			    $dbuser = "root";
-			    $dbpass = "Flavdimart94";
+			    $dbpass = "root";
 			    $dbname = "rush_MVC";
 
 			    self::$bdd = new PDO("mysql:host=$dbhost;port=3306;dbname=$dbname", $dbuser, $dbpass);

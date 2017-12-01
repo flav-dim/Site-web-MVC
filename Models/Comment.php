@@ -1,6 +1,6 @@
 <?php
 //FUNCTIONS TO MANAGE DB REQUESTS
-class Comment extends AppController
+class Comment
 {
     protected $table = 'comments';
 

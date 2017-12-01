@@ -1,13 +1,14 @@
 <?php
 //FUNCTIONS TO MANAGE DB REQUESTS
-class Article extends AppController
+class Article
 {
     protected $table = 'articles';
 
     public static function getAll(){
         $query = Db::connect()->prepare("SELECT a.*, c.cat_title
             FROM articles a
-            JOIN categories c ON a.category_id = c.id");//order by
+            JOIN categories c ON a.category_id = c.id
+            ORDER BY modif_date DESC");//order by
         $query->execute();
         $result = $query->fetchAll();
 
@@ -30,22 +31,22 @@ class Article extends AppController
         }
 
     }
-    public static function addArticle($title, $content, $category_id){
-        $query = Db::connect()->prepare("INSERT INTO articles (title, content, creation_date, category_id)VALUES (?, ?,?, ?)");
+    public static function addArticle($title, $content, $category_id, $photo){
+        $query = Db::connect()->prepare("INSERT INTO articles (title, content, creation_date, modif_date, category_id, photo)VALUES (?, ?,?,?, ?, ?)");
 
 
-        if ($query->execute(array($title, $content, date('Y-m-d H:i:s'),$category_id ) ) ) {
+        if ($query->execute(array($title, $content, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'),$category_id, $photo ) ) ) {
             return true;
         } else {
             return false;
         }
 
     }
-    public static function update($id, $title, $content, $category_id){
-        $query = Db::connect()->prepare("UPDATE articles SET title = ?, content= ?, modif_date = ?, category_id = ? WHERE id = ?");
+    public static function update($id, $title, $content, $category_id, $photo){
+        $query = Db::connect()->prepare("UPDATE articles SET title = ?, content= ?, modif_date = ?, category_id = ?, photo = ? WHERE id = ?");
 
 
-        if ($query->execute(array($title, $content, date('Y-m-d H:i:s'), $category_id, $id ) ) ) {
+        if ($query->execute(array($title, $content, date('Y-m-d H:i:s'), $category_id, $photo, $id ) ) ) {
             return true;
         } else {
             return false;

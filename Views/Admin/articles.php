@@ -22,7 +22,7 @@ writerSecurity();
                     </a>
                 </td>
                 <td><?=$art['cat_title']?></td>
-                <td><?=$art['creation_date']?></td>
+                <td><?=$art['modif_date']?></td>
                 <td>
                     <a href="<?=RACINE.'/Home/Articles/updateArticle/'.$art['id']?>/" title="Update Article"><i class="material-icons">create</i></a>
                     <a href="<?=RACINE.'/Home/Articles/delete/'.$art['id']?>/" title="Delete Article"><i class="material-icons">delete</i></a>

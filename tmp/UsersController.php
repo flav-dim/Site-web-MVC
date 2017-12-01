@@ -148,11 +148,11 @@ class Users extends AppController
              toUserManager();
         }
 
-        else
+        else 
         {
             $this->logout();
         }
-
+          
        }
 
      }

@@ -1,6 +1,6 @@
 <?php
 //FUNCTIONS TO MANAGE DB REQUESTS
-class Category extends AppController
+class Category
 {
     protected $table = 'categories';
 

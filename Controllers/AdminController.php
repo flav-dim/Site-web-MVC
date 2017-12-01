@@ -47,7 +47,7 @@ class Admin extends AppController
     function newUser(){
         $this->render('inscription');
     }
-    
+
     function newArticle(){
         $this->loadModel('Category');
         $d['categories'] = Category::getAll();
@@ -64,6 +64,7 @@ class Admin extends AppController
     function newCategory(){
         $this->render('add_category');
     }
+    
     function updateCategory(){
         $this->render('add_category');
     }

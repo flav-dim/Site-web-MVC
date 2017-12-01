@@ -1,6 +1,6 @@
 <?php
 //FUNCTIONs TO MANAGE DB REQUESTS
-class User extends AppController
+class User
 {
     protected $table = 'users';
 
@@ -34,6 +34,10 @@ class User extends AppController
         $query = Db::connect()->prepare("SELECT * FROM users WHERE email = ? ");
         $query->execute(array($email));
         $result = $query->fetch();
+        if($result['status'] == true ){//si il est banni, on empeche la connection
+            setFlashMessage('You\'re account has been desactivated ');
+            toIndex();
+        }
 
         if(!empty($result)){
             if( password_verify($password, $result['password']) ){
@@ -43,20 +47,20 @@ class User extends AppController
                 $_SESSION['user'] = $result;
                 header('Location: '.RACINE.'/Home');
             }
-            echo "Wrong Password";
+            setFlashMessage("Wrong Password");
             return false;
         }
-        echo "Wrong email";
+        setFlashMessage("Wrong email");
         return false;
 
     }
 
     public static function addUser($username, $password, $email, $user_group = 0, $status = false ){
-        $query = Db::connect()->prepare("INSERT INTO users (username, password, email, user_group, status, creation_date) VALUES (?,?,?,?,?,?)");
+        $query = Db::connect()->prepare("INSERT INTO users (username, password, email, user_group, status, creation_date, modif_date) VALUES (?,?,?,?,?,?)");
 
         if($query->execute(
             array(
-                $username, $password, $email, $user_group, $status, date('Y-m-d H:i:s')
+                $username, $password, $email, $user_group, $status, date('Y-m-d H:i:s'), date('Y-m-d H:i:s')
                 )
             ) ){
             return true;

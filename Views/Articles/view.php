@@ -4,6 +4,7 @@
 foreach ($article as $art) {
     echo "<h2>".$art['title']."</h2>";
     echo "<p>".$art['content']."</p>";
+    echo "<p>".$art['creation_date']."</p>";
 
  ?>
 </div>

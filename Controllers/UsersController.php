@@ -147,6 +147,10 @@ class Users extends AppController
 
      }
 
+     function profil(){
+          $this->render('profil');
+       }
+
      //$this->render('logout');//supprime la session et les cookies + renvoi à Home;
 
 }

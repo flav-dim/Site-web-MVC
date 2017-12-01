@@ -11,9 +11,9 @@ class Db
 		if (is_null(self::$bdd)) {//First connection
 
               try {
-			    $dbhost = "localhost";
+			    $dbhost = "127.0.0.1";
 			    $dbuser = "root";
-			    $dbpass = "root";
+			    $dbpass = "Flavdimart94";
 			    $dbname = "rush_MVC";
 
 			    self::$bdd = new PDO("mysql:host=$dbhost;port=3306;dbname=$dbname", $dbuser, $dbpass);

@@ -30,23 +30,26 @@
                         <li><a href="<?=RACINE?>/Home/Users/login/">LogIn</a><li>
                         <li><a href="<?=RACINE?>/Home/Users/newUser/">Inscription</a><li>
                         <?php else : ?>
-                        <li><a href="<?=RACINE?>/Home/Users/newUser/"><?=ucfirst($_SESSION['user']['username'])?></a><li>
+                        <li><a href="<?=RACINE?>/Home/Users/profil/"><?=ucfirst($_SESSION['user']['username'])?></a><li>
                         <li><a href="<?=RACINE?>/Home/Users/logout/">Logout</a><li>
                         <?php endif; ?>
 
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
-                        <li><a href="<?=RACINE?>/Home">Home</a><li>
-                        <li><a href="<?=RACINE?>/Home/Articles/">Articles</a><li>
-                        <li><a href="<?=RACINE?>/Home/Users/">Users</a><li>
+                    <li><a href="<?=RACINE?>/Home">Home</a><li>
                         <?php if(isUserAdmin()) :?>
-                        <li><a href="<?=RACINE?>/Home/Admin/index/">Aministration</a></li>
+                            <li><a href="<?=RACINE?>/Home/Admin/index/">Aministration</a></li>
+                            <li><a href="<?=RACINE?>/Home/Admin/categories/">Categories</a><li>
+                            <li><a href="<?=RACINE?>/Home/Admin/users/">Users</a><li>
+                        <?php endif; ?>
+                        <?php if(isUserWriter()) :?>
+                            <li><a href="<?=RACINE?>/Home/Admin/articles/">Articles</a><li>
                         <?php endif; ?>
                         <?php if(!isUserConnected()): ?>
                         <li><a href="<?=RACINE?>/Home/Users/login/">LogIn</a><li>
                         <li><a href="<?=RACINE?>/Home/Users/newUser/">Inscription</a><li>
                         <?php else : ?>
-                        <li><a href="<?=RACINE?>/Home/Users/newUser/"><?=ucfirst($_SESSION['user']['username'])?></a><li>
+                        <li><a href="<?=RACINE?>/Home/Users/profil/"><?=ucfirst($_SESSION['user']['username'])?></a><li>
                         <li><a href="<?=RACINE?>/Home/Users/logout/">Logout</a><li>
                         <?php endif; ?>
                     </ul>

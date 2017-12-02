@@ -9,8 +9,8 @@
           ?>
      </div>
      <p>
-      <input type="checkbox" id="test6" checked="checked" name="remember_me"/>
-      <label for="test6">Remember Me</label>
+      <input type="checkbox" id="remember" checked="checked" name="remember_me"/>
+      <label for="remember">Remember Me</label>
     </p>
 
      <button class="btn waves-effect waves-light" type="submit" name="action">Submit

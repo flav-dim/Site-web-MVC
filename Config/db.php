@@ -1,12 +1,12 @@
 <?php
 class Db
 {
-    protected static $bdd = null;
+    protected static $bdd = null;//$_instance
 
     protected function __construct() { } // Constructeur en privé pour empecher l'instanciation.
     protected function __clone() { } // Méthode de clonage en privé aussi.
 
-    function connect()
+    function connect()//::get instance
 	{
 		if (is_null(self::$bdd)) {//First connection
 
@@ -33,8 +33,6 @@ class Db
 	}//end function
 
 }
-Db::connect();
-
-
+// Db::connect();
 
  ?>

@@ -18,15 +18,15 @@
                     <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><a href="<?=RACINE?>/Home">Home</a><li>
-                        <?php if(isUserAdmin()) :?>
+                        <?php if(Admin::isUserAdmin()) :?>
                             <li><a href="<?=RACINE?>/Home/Admin/index/">Aministration</a></li>
                             <li><a href="<?=RACINE?>/Home/Admin/categories/">Categories</a><li>
                             <li><a href="<?=RACINE?>/Home/Admin/users/">Users</a><li>
                         <?php endif; ?>
-                        <?php if(isUserWriter()) :?>
+                        <?php if(Admin::isUserWriter()) :?>
                             <li><a href="<?=RACINE?>/Home/Admin/articles/">Articles</a><li>
                         <?php endif; ?>
-                        <?php if(!isUserConnected()): ?>
+                        <?php if(!Admin::isUserConnected()): ?>
                         <li><a href="<?=RACINE?>/Home/Users/login/">LogIn</a><li>
                         <li><a href="<?=RACINE?>/Home/Users/newUser/">Inscription</a><li>
                         <?php else : ?>
@@ -37,15 +37,15 @@
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
                     <li><a href="<?=RACINE?>/Home">Home</a><li>
-                        <?php if(isUserAdmin()) :?>
+                        <?php if(Admin::isUserAdmin()) :?>
                             <li><a href="<?=RACINE?>/Home/Admin/index/">Aministration</a></li>
                             <li><a href="<?=RACINE?>/Home/Admin/categories/">Categories</a><li>
                             <li><a href="<?=RACINE?>/Home/Admin/users/">Users</a><li>
                         <?php endif; ?>
-                        <?php if(isUserWriter()) :?>
+                        <?php if(Admin::isUserWriter()) :?>
                             <li><a href="<?=RACINE?>/Home/Admin/articles/">Articles</a><li>
                         <?php endif; ?>
-                        <?php if(!isUserConnected()): ?>
+                        <?php if(!Admin::isUserConnected()): ?>
                         <li><a href="<?=RACINE?>/Home/Users/login/">LogIn</a><li>
                         <li><a href="<?=RACINE?>/Home/Users/newUser/">Inscription</a><li>
                         <?php else : ?>

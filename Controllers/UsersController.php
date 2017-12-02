@@ -1,8 +1,20 @@
 <?php
-// include_once ('AppController.php');
 //SINGLETON
 class Users extends AppController
 {
+    private static $_instance = null;
+
+    private function __construct() {
+    }
+
+    public static function getInstance() {
+
+      if(is_null(self::$_instance)) {
+        self::$_instance = new Users();
+      }
+
+      return self::$_instance;
+    }
 
      function index(){
          $d = array();
@@ -21,7 +33,7 @@ class Users extends AppController
              $this->loadModel('User');
              $d['user'] = User::get($id);
              if(empty($d['article'])){
-                 toUserManager();
+                 AppController::toUserManager();
              } else {
                  $this->set($d);
                  $this->layout = 'super';
@@ -68,17 +80,21 @@ class Users extends AppController
        if(empty($errors) )
        {
            User::addUser($username, $password, $email, $user_group);
-           setFlashMessage("user added to database");
-           if(isUserAdmin()){
-               toUserManager();
+           setFlashMessage("user added ");
+           if(Admin::isUserWriter()){
+               AppController::toUserManager();
            } else {
                $this->render('login');//show login page
-
            }
          } else {//insert didn't work
              $message = implode('<br>', $errors);
              setFlashMessage($message);
-             $this->render('inscription');//show inscription
+             if(Admin::isUserWriter()){
+                 $this->render('../Admin/inscription');//show inscription
+
+             } else {
+                 $this->render('inscription');//show inscription
+             }
          }
 
      }
@@ -87,6 +103,12 @@ class Users extends AppController
          $d['user'] = User::get($id);
          $this->set($d);
          $this->render('updateUser');
+     }
+     function updateUserProfil(){
+         $this->loadModel('User');
+         $d['user'] = User::get($_SESSION['user']['id']);
+         $this->set($d);
+         $this->render('updateUserProfil');
      }
 
      function verifUpdate(){
@@ -114,13 +136,17 @@ class Users extends AppController
        {
            $this->loadModel('User');
            if(User::update($id, $username, $email, $user_group)){
-               setFlashMessage("User modified");
-               toUserManager();
+               setFlashMessage("Account modified");
+               AppController::toUserManager();
+           } else {
+               setFlashMessage("database error");
+               AppController::toUserManager();
+
            }
          } else {//insert didn't work
              $message = implode('<br>',$errors);
              setFlashMessage($message);
-             toUpdateUser($id);//show inscription
+             AppController::toUpdateUser($id);//show inscription
          }
 
      }
@@ -131,7 +157,6 @@ class Users extends AppController
          if(!empty($_POST)){
             User::logIn($_POST);//checks input
          }
-
      }
 
      function logout(){
@@ -143,25 +168,17 @@ class Users extends AppController
          if (User::delete($id)) {
              setFlashMessage("The user has been deleted");
 
-        if (isUserAdmin())
-        {
-             toUserManager();
-        }
-
-        else
-        {
-            $this->logout();
-        }
-
+             if (Admin::isUserWriter()) {
+                 AppController::toUserManager();
+             } else {
+                 $this->logout();//supprime la session et les cookies + renvoi à Home;
+            }
+          }
        }
-
-     }
 
      function profil(){
           $this->render('profil');
        }
-
-     //$this->render('logout');//supprime la session et les cookies + renvoi à Home;
 
 }
 

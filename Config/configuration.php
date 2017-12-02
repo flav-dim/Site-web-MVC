@@ -6,54 +6,6 @@ function toLogin(){//redirect to login page
     header('Location: '.RACINE.'/Home/Users/login/');
     die;
 }
-function toIndex(){//redirect to index page
-    header('Location: '.RACINE.'/Home');
-    die;
-}
-function toArticleManager(){//redirect to index page
-    header('Location: '.RACINE.'/Home/Admin/articles/');
-    die;
-}
-function toCategoryManager(){//redirect to index page
-    header('Location: '.RACINE.'/Home/Admin/categories/');
-    die;
-}
-function toCommentManager(){//redirect to index page
-    header('Location: '.RACINE.'/Home/Admin/comments/');
-    die;
-}
-function toView($id){//redirect to index page
-    header('Location: '.RACINE.'/Home/Articles/view/'.$id.'/');
-    die;
-}
-function toUpdateUser($id){//redirect to index page
-    header('Location: '.RACINE.'/Home/Users/updateUser/'.$id.'/');
-    die;
-}
-function toAddArticle($id){//redirect to index page
-    header('Location: '.RACINE.'/Home/Admin/newArticle/');
-    die;
-}
-function toUpdateArticle($id){//redirect to index page
-    header('Location: '.RACINE.'/Home/Articles/updateArticle/'.$id.'/');
-    die;
-}
-function toAddCategory($id){//redirect to index page
-    header('Location: '.RACINE.'/Home/Admin/newCategory/');
-    die;
-}
-function toUpdateCategory($id){//redirect to index page
-    header('Location: '.RACINE.'/Home/Categories/updateCategory/'.$id.'/');
-    die;
-}
-// function toUsers(){//redirect to index page
-//     header('Location: '.RACINE.'/Home/Users');
-//     die;
-// }
-function toUserManager(){//redirect to index page
-    header('Location: '.RACINE.'/Home/Admin/users/');
-    die;
-}
 
 //**************************Display*************/
 function setFlashMessage($message, $type = 'success' ){
@@ -92,38 +44,10 @@ function displayDate($day, $month, $year){
     }
 
 /***********************SECURITY**********************/
-    function isUserConnected(){//return true if user is connected
-        return isset($_SESSION['user']);
-    }
-
-    function userSecurity(){
-        if(!isUserConnected() ){
-            toLogin();
-        }
-    }
-    // function isBanned($id){
-    //     return
-    // }
-    function isUserAdmin(){
-        return isUserConnected() && $_SESSION['user']['user_group'] == 2 ;// return if user is admin
-    }
-    function isUserWriter(){
-        return isUserConnected() && ($_SESSION['user']['user_group'] == 1 || $_SESSION['user']['user_group'] == 2) ;// return if user is admin or writer
-    }
-
-    function adminSecurity(){
-        if(!isUserAdmin() ){
-            toIndex();//if not admin go to index
-        }
-    }
-    function writerSecurity(){
-        if(!isUserWriter() ){
-            toIndex();//if not writer go to index
-        }
-    }
+    
     function my_cookie($name, $value){
         $year = 3600*24*365;
-        setcookie("$name", serialize($value), (time() + $year));//unserialize in index.php after login.
+        setcookie("$name", serialize($value), (time() + $year));//unserialize after login.
     }
 
     function remove_cookie($cookie){

@@ -1,5 +1,5 @@
 <?php
-writerSecurity();
+Admin::writerSecurity();
 $title = $content = "";
 if (isset($_POST)) {
     extract($_POST);

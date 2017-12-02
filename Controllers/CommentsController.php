@@ -3,6 +3,19 @@
 //SINGLETON
 class Comments extends AppController
 {
+    private static $_instance = null;
+
+    private function __construct() {
+    }
+
+    public static function getInstance() {
+
+      if(is_null(self::$_instance)) {
+        self::$_instance = new Comments();
+      }
+
+      return self::$_instance;
+    }
 
     function index(){
         $d = array();
@@ -12,23 +25,6 @@ class Comments extends AppController
         $this->render('index');//inclu les info dans indx
 
     }
-
-    // function view($id = null){
-    //     if ($id == null) {
-    //         toCommentManager();
-    //     } else {
-    //         $d = array();
-    //         $this->loadModel('Comment');
-    //         $d['comment'] = Comment::get($id);
-    //         if(empty($d['comment'])){
-    //             toComments();
-    //         } else {
-    //             $this->set($d);
-    //             $this->render('view');
-    //         }
-    //
-    //     }
-//}
 
     function verif(){
         $this->loadModel('Comment');
@@ -44,14 +40,14 @@ class Comments extends AppController
       if(empty($errors) )
       {
           Comment::addComment($article_id, $user_id, $com);
-          setFlashMessage("Comment added to database");
+          setFlashMessage("Comment added ");
 
-              toView($article_id);
+              AppController::toView($article_id);
 
         } else {//insert didn't work
             $message = implode($errors);
             setFlashMessage($message);
-            toView($article_id);
+            AppController::toView($article_id);
 
         }
 
@@ -61,7 +57,7 @@ class Comments extends AppController
         $this->loadModel('Comment');
         if (Comment::delete($id)) {
             setFlashMessage("The comment has been deleted");
-            toCommentManager();
+            AppController::toCommentManager();
         }
 
     }

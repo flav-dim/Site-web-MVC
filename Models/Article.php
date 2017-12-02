@@ -2,7 +2,6 @@
 //FUNCTIONS TO MANAGE DB REQUESTS
 class Article
 {
-    protected $table = 'articles';
 
     public static function getAll(){
         $query = Db::connect()->prepare("SELECT a.*, c.cat_title

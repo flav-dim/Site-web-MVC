@@ -1,5 +1,5 @@
 <?php
-adminSecurity();
+Admin::adminSecurity();
  ?>
 <a href="<?=RACINE.'/Home/Admin/newUser/'?>" title="Create User"><button type="button" name="button" class="btn"><i class="material-icons">add</i>New User</button></a>
 <table class="highlight">

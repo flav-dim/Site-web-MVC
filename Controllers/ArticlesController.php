@@ -3,6 +3,19 @@
 //SINGLETON
 class Articles extends AppController
 {
+    private static $_instance = null;
+
+    private function __construct() {
+    }
+
+    public static function getInstance() {
+
+      if(is_null(self::$_instance)) {
+        self::$_instance = new Articles();
+      }
+
+      return self::$_instance;
+    }
 
     function index(){
         $d = array();
@@ -15,7 +28,7 @@ class Articles extends AppController
 
     function view($id = null){
         if ($id == null) {
-            toArticleManager();
+            AppController::toArticleManager();
         } else {
             $d = array();
             $this->loadModel('Article');
@@ -49,42 +62,35 @@ class Articles extends AppController
       if(empty($category_id)){
           $errors[]= "Invalid Category.";
       }
-    //   var_dump($_FILES);
+
       if(!empty($_FILES['photo']['tmp_name']) ){
 
-                  $photo = uniqid().'_'.$_FILES['photo']['name'];// uniqid crée un id unique pour chaque photo
+          $photo = uniqid().'_'.$_FILES['photo']['name'];// uniqid crée un id unique pour chaque photo
 
-                  move_uploaded_file($_FILES['photo']['tmp_name'], "/home/kay/Rendu/PHP_Rush_MVC/Webroot/Img/".$photo);// on déplace l'img dans le dossier Img
+          move_uploaded_file($_FILES['photo']['tmp_name'], "/home/kay/Rendu/PHP_Rush_MVC/Webroot/Img/".$photo);// on déplace l'img dans le dossier Img
 
-              if ($_FILES['photo']['size'] >1000000) {
-
-                  $errors[]= 'your photo can\'t be more than 1Mo';
-
-              }
-
-              if (!in_array($_FILES['photo']['type'], array('image/jpeg','image/gif','image/png')) ){
-
-                  $errors[] = 'your photo must be a JPG, GIF or PNG';
-
-              }
-
-          } else{
-
-          $errors[]='you have to add a photo';
-
+          if ($_FILES['photo']['size'] >1000000) {
+              $errors[]= 'your photo can\'t be more than 1Mo';
           }
+
+          if (!in_array($_FILES['photo']['type'], array('image/jpeg','image/gif','image/png')) ){
+              $errors[] = 'your photo must be a JPG, GIF or PNG';
+          }
+      } else{
+          $errors[]='you have to add a photo';
+      }
 
       if(empty($errors) )
       {
           Article::addArticle($title, $content, $category_id, $photo);
-          setFlashMessage("Article added to database");
-          if(isUserAdmin()){
-              toArticleManager();
-          }
+          setFlashMessage("Article added ");
+
+          AppController::toArticleManager();
+
         } else {//insert didn't work
             $message = implode('<br>', $errors);
             setFlashMessage($message);
-            toAddArticle();
+            AppController::toAddAricle();
         }
 
     }
@@ -118,24 +124,28 @@ class Articles extends AppController
 
       if(empty($errors) )
       {
-          Article::update($id, $title, $content, $category_id);
-          setFlashMessage("Article modified");
-              toArticleManager();
+          if(Article::update($id, $title, $content, $category_id)){
 
-        } else {//insert didn't work
+              AppController::toArticleManager();
+          } else {
+              setFlashMessage("database error");
+              AppController::toArticleManager();
+
+          }
+
+      } else {//insert didn't work
             $message = implode('<br>', $errors);
             setFlashMessage($message);
-            toUpdateArticle($id);//show inscription
+            AppController::toUpdateArticle($id);//show inscription
         }
 
     }
-
 
     function delete($id){
         $this->loadModel('Article');
         if (Article::delete($id)) {
             setFlashMessage("The Article has been deleted");
-            toArticleManager();
+            AppController::toArticleManager();
         }
 
     }

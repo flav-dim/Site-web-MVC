@@ -4,8 +4,19 @@
 class Admin extends AppController
 {
 
-    public function __construct() { }
-    //method articles
+    private static $_instance = null;
+
+    private function __construct() {
+    }
+
+    public static function getInstance() {
+
+      if(is_null(self::$_instance)) {
+        self::$_instance = new Admin();
+      }
+
+      return self::$_instance;
+    }
 
     function index(){
         $this->render('admin');//inclu les info dans indx
@@ -64,9 +75,16 @@ class Admin extends AppController
     function newCategory(){
         $this->render('add_category');
     }
-    
-    function updateCategory(){
-        $this->render('add_category');
+
+    // function updateCat(){
+    //     $this->render('updateCategory');
+    // }
+
+    function updateCategory($id){
+        $this->loadModel('Category');
+        $d['category'] = Category::get($id);
+        $this->set($d);
+        $this->render('updateCategory');
     }
 
     function desactivate($id){
@@ -78,7 +96,7 @@ class Admin extends AppController
             } else {
                 setFlashMessage('User reactivated');
             }
-            toUserManager();
+            AppController::toUserManager();
         } else {
             setFlashMessage('Can\'t desactivate');
         }
@@ -86,6 +104,33 @@ class Admin extends AppController
 
     }
 
+    public static function isUserConnected(){//return true if user is connected
+        return isset($_SESSION['user']);
+    }
+
+    public static function userSecurity(){
+        if(!Admin::isUserConnected() ){
+            toLogin();
+        }
+    }
+
+    public static function isUserAdmin(){
+        return Admin::isUserConnected() && $_SESSION['user']['user_group'] == 2 ;// return if user is admin
+    }
+    public static function isUserWriter(){
+        return Admin::isUserConnected() && ($_SESSION['user']['user_group'] == 1 || $_SESSION['user']['user_group'] == 2) ;// return if user is admin or writer
+    }
+
+    public static function adminSecurity(){
+        if(!Admin::isUserAdmin() ){
+            AppController::toIndex();//if not admin go to index
+        }
+    }
+    public static function writerSecurity(){
+        if(!Admin::isUserWriter() ){
+            AppController::toIndex();//if not writer go to index
+        }
+    }
 
 
 

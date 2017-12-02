@@ -1,7 +1,7 @@
 <?php
-writerSecurity();
+Admin::writerSecurity();
  ?>
-<h1>Add Article</h1>
+<h1>Update Article</h1>
 <div class="row">
    <form class="col s12" action="<?=RACINE?>/Home/Articles/verifUpdate/" method="post">
      <div class="row">

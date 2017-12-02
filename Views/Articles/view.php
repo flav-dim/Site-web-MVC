@@ -11,7 +11,7 @@ foreach ($article as $art) {
 </div>
 
  <div class="row">
-     <?php if(isUserConnected()) : ?>
+     <?php if(Admin::isUserConnected()) : ?>
         <form class="col s12" action="<?=RACINE?>/Home/Comments/verif/" method="post">
           <div class="row">
               <?php

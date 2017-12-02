@@ -1,5 +1,5 @@
 <?php
-adminSecurity();
+Admin::adminSecurity();
  ?>
 <table class="highlight">
     <thead>

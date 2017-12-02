@@ -2,11 +2,22 @@
 //FUNCTIONS TO MANAGE DB REQUESTS
 class Categories extends AppController
 {
-    protected $table = 'categories';
+    private static $_instance = null;
+
+    private function __construct() {
+    }
+
+    public static function getInstance() {
+
+      if(is_null(self::$_instance)) {
+        self::$_instance = new Categories();
+      }
+
+      return self::$_instance;
+    }
 
     function verif(){
         $this->loadModel('Category');
-
         array_filter($_POST, "self::secure_input");
         extract($_POST);
         $errors = [];
@@ -21,26 +32,58 @@ class Categories extends AppController
 
         if(empty($errors) ){
 
-            if(Category::addCategory($cat_title) ){
-                setFlashMessage("Category added to database");
-                toCategoryManager();
+            if(Category::add($cat_title) ){
+                setFlashMessage("Category created");
+                AppController::toCategoryManager();
+            } else {
+                setFlashMessage("database error");
+                AppController::toCategoryManager();
             }
 
         } else {
             $message = implode('<br>', $errors);
             setFlashMessage($message);
-            // toAddCategory();
-            header('Location: '.RACINE.'/Home/Admin/newCategory/');
-            die;
+            AppController::toAddCategory();
+
         }// fin empty $errors
     }
+    function verifUpdate(){
+        $this->loadModel('Category');
+        array_filter($_POST, "self::secure_input");
+        extract($_POST);
+        $errors = [];
 
+        if(strlen($cat_title) > 30 || strlen($cat_title) < 3){
+            $errors[]= "Invalid Title.";
+        }
+
+        if(Category::verify_name_update($cat_title, $id)){
+            $errors[] = "This category already exists";
+        }
+
+        if(empty($errors) ){
+
+            if( Category::update($cat_title, $id) ){
+                setFlashMessage("Category modified");
+                AppController::toCategoryManager();
+            } else {
+                setFlashMessage("database error");
+                AppController::toCategoryManager();
+            }
+
+        } else {
+            $message = implode('<br>', $errors);
+            setFlashMessage($message);
+            AppController::toUpdateCategory($id);
+
+        }// fin empty $errors
+    }
 
     function delete($id){
         $this->loadModel('Category');
         if (Category::delete($id)) {
             setFlashMessage("The Category has been deleted");
-            toCategoryManager();
+            AppController::toCategoryManager();
         }
 
     }

@@ -68,8 +68,8 @@ class Users extends AppController
        if(empty($errors) )
        {
            User::addUser($username, $password, $email, $user_group);
-           setFlashMessage("user added to database");
-           if(isUserAdmin()){
+           setFlashMessage("user added ");
+           if(Admin::isUserWriter()){
                toUserManager();
            } else {
                $this->render('login');//show login page
@@ -120,7 +120,7 @@ class Users extends AppController
          } else {//insert didn't work
              $message = implode('<br>',$errors);
              setFlashMessage($message);
-             toUpdateUser($id);//show inscription
+             AppController::toUpdateUser($id);//show inscription
          }
 
      }
@@ -143,16 +143,16 @@ class Users extends AppController
          if (User::delete($id)) {
              setFlashMessage("The user has been deleted");
 
-        if (isUserAdmin())
+        if (Admin::isUserWriter())
         {
              toUserManager();
         }
 
-        else 
+        else
         {
             $this->logout();
         }
-          
+
        }
 
      }

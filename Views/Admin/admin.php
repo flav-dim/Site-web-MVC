@@ -1,4 +1,4 @@
-<?php adminSecurity(); ?>
+<?php Admin::adminSecurity(); ?>
 
 <h1>Admin Page</h1>
 

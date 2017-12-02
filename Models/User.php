@@ -36,27 +36,28 @@ class User
         $result = $query->fetch();
         if($result['status'] == true ){//si il est banni, on empeche la connection
             setFlashMessage('You\'re account has been desactivated ');
-            toIndex();
+            AppController::toIndex();
         }
 
         if(!empty($result)){
             if( password_verify($password, $result['password']) ){
                 if(isset($remember_me) ){
-                    my_cookie("user", $infoUser);
+                    my_cookie("user", $result);
                 }
                 $_SESSION['user'] = $result;
-                header('Location: '.RACINE.'/Home');
+                AppController::toIndex();
+            } else {
+                setFlashMessage("Wrong Password");
+                return false;
             }
-            setFlashMessage("Wrong Password");
+        } else {
+            setFlashMessage("Wrong email");
             return false;
         }
-        setFlashMessage("Wrong email");
-        return false;
-
     }
 
     public static function addUser($username, $password, $email, $user_group = 0, $status = false ){
-        $query = Db::connect()->prepare("INSERT INTO users (username, password, email, user_group, status, creation_date, modif_date) VALUES (?,?,?,?,?,?)");
+        $query = Db::connect()->prepare("INSERT INTO users (username, password, email, user_group, status, creation_date, modif_date) VALUES (?,?,?,?,?,?, ?)");
 
         if($query->execute(
             array(

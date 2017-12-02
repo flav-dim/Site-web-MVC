@@ -1,5 +1,5 @@
 <?php
-adminSecurity();
+Admin::adminSecurity();
  ?>
 <h1>Inscription</h1>
 <div class="row">

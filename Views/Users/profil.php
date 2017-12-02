@@ -42,7 +42,7 @@
 
 </table>
 
-<form class="col s12" action="<?=RACINE?>/Home/Users/updateUser/<?=$_SESSION['user']['id']?>/" method="post">
+<form class="col s12" action="<?=RACINE?>/Home/Users/updateUserProfil/" method="post">
      <button class="btn waves-effect waves-light" type="submit" name="action">Click to modify your profile
      </button>
 </form>
@@ -53,4 +53,3 @@
      <button class="btn waves-effect waves-light" type="submit" name="action">Click to delete your account
      </button>
 </form>
-

@@ -1,18 +1,17 @@
 <?php
 Admin::adminSecurity();
-$cat_title = "";
-if (isset($_POST)) {
-    extract($_POST);
-}
  ?>
 
-<h1>Create Category</h1>
+<h1>Update Category</h1>
 
 <div class="row">
-   <form class="col s12" action="<?=RACINE?>/Home/Categories/verif/" method="post">
+   <form class="col s12" action="<?=RACINE?>/Home/Categories/verifUpdate/" method="post">
      <div class="row">
          <?php
-         Form::input_text('cat_title', $cat_title);
+          foreach ($category as $cat) {
+         Form::input_text('cat_title', $cat['cat_title']);
+         Form::hidden('id', $cat['id']);
+     }
           ?>
 
      </div>

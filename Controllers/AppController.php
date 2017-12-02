@@ -7,17 +7,17 @@ class AppController
     protected $vars = array();
     protected $layout = 'default';
 
-    function __construct(){
-        if(isset($_POST)){
-            $this->data = $_POST;
-        }
-
-        if(isset($this->models)){
-            foreach($this->models as $mod){
-                $this->loadModel($mod);
-            }
-        }
-    }
+    // function __construct(){
+    //     if(isset($_POST)){
+    //         $this->data = $_POST;
+    //     }
+    //
+    //     if(isset($this->models)){
+    //         foreach($this->models as $mod){
+    //             $this->loadModel($mod);
+    //         }
+    //     }
+    // }
 
     public function loadModel($model){
         //Loads the Database class so that it can be accessed in the controller by using $this->$model.
@@ -39,7 +39,7 @@ class AppController
                 require ('../Views/'.get_class($this).'/'.$file.'.php');
             }
         } else {
-            toIndex();
+            AppController::toIndex();
         }
 
         $content_for_layout = ob_get_clean();
@@ -73,8 +73,52 @@ class AppController
         return $data;
     }
 
+    public static function toIndex(){//redirect to index page
+        header('Location: '.RACINE.'/Home');
+        die;
+    }
 
+    public static function toArticleManager(){
+        header('Location: '.RACINE.'/Home/Admin/articles/');
+        die;
+    }
+    public static function toCategoryManager(){
+        header('Location: '.RACINE.'/Home/Admin/categories/');
+        die;
+    }
+    public static function toCommentManager(){
+        header('Location: '.RACINE.'/Home/Admin/comments/');
+        die;
+    }
+    public static function toView($id){
+        header('Location: '.RACINE.'/Home/Articles/view/'.$id.'/');
+        die;
+    }
+    public static function toUpdateUser($id){
+        header('Location: '.RACINE.'/Home/Users/updateUser/'.$id.'/');
+        die;
+    }
+    public static function toAddArticle(){
+        header('Location: '.RACINE.'/Home/Admin/newArticle/');
+        die;
+    }
+    public static function toUpdateArticle($id){
+        header('Location: '.RACINE.'/Home/Articles/updateArticle/'.$id.'/');
+        die;
+    }
+    public static function toAddCategory(){
+        header('Location: '.RACINE.'/Home/Admin/newCategory/');
+        die;
+    }
+    public static function toUpdateCategory($id){
+        header('Location: '.RACINE.'/Home/Admin/updateCategory/'.$id.'/');
+        die;
+    }
 
+    public static function toUserManager(){//redirect to index page
+        header('Location: '.RACINE.'/Home/Admin/users/');
+        die;
+    }
 
 
 

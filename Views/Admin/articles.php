@@ -1,5 +1,5 @@
 <?php
-writerSecurity();
+Admin::writerSecurity();
  ?>
 <a href="<?=RACINE.'/Home/Admin/newArticle/'?>" title="Create Article"><button type="button" name="button" class="btn"><i class="material-icons">add</i>New Article</button></a>
 <table class="highlight">

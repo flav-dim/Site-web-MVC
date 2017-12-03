@@ -15,6 +15,34 @@ class Category
         }
 
     }
+    public static function getAllArticles($cat_title){
+        $cat_id = Category::getId('cat_title', $cat_title);
+        $query = Db::connect()->prepare("SELECT a.*
+            FROM articles a
+            JOIN categories c ON c.id = a.category_id
+            WHERE c.cat_title= ?");//order by
+        $query->execute(array($cat_title));
+        $result = $query->fetchAll();
+
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+
+    }
+    public static function getId($field, $value){
+        $query = Db::connect()->prepare("SELECT id FROM categories WHERE $field = ?");
+        $query->execute(array($value));
+        $result = $query->fetchColumn();
+
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+
+    }
     public static function get($id){
         $query = Db::connect()->prepare("SELECT * FROM categories WHERE id = ?");
         $query->execute(array($id));

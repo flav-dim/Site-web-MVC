@@ -25,6 +25,24 @@ class Articles extends AppController
         $this->render('index');//inclu les info dans indx
 
     }
+    function indexTag($tag_title){
+        $this->loadModel('Tag');
+        if(!Tag::verify_name($tag_title)){//name doesn't exist
+            AppController::toIndex();
+        }
+        $d['articles'] = Tag::getAllArticles($tag_title);
+        $this->set($d);
+        $this->render('index');
+    }
+    function indexCat($cat_title){
+        $this->loadModel('Category');
+        if(!Category::verify_name($cat_title)){//name doesn't exist
+            AppController::toIndex();
+        }
+        $d['articles'] = Category::getAllArticles($cat_title);
+        $this->set($d);
+        $this->render('index');
+    }
 
     function view($id = null){
         if ($id == null) {
@@ -35,8 +53,9 @@ class Articles extends AppController
             $this->loadModel('Comment');
             $d['article'] = Article::get($id);
             $d['comments'] = Comment::get($id);
-            if(empty($d['article'])){
-                toArticles();
+            $d['tags'] = Article::getAllTags($id);
+            if(empty($d['article'])){//si l'article n'existe pas
+                AppController::toIndex();
             } else {
                 $this->set($d);
                 $this->render('view');
@@ -48,16 +67,20 @@ class Articles extends AppController
     function verif(){
         $this->loadModel('Article');
 
-        array_filter($_POST, "self::secure_input");
         extract($_POST);
         $errors = [];
 
       if(strlen($title) > 30 || strlen($title) < 3){
         $errors[]= "Invalid Title.";
-      }
+    } else{
+        AppController::secure_input($title);
+    }
 
       if(empty($content)){
           $errors[]= "Invalid Content.";
+      } else {
+          AppController::secure_input($content);
+          $content = nl2br($content);
       }
       if(empty($category_id)){
           $errors[]= "Invalid Category.";
@@ -76,27 +99,40 @@ class Articles extends AppController
           if (!in_array($_FILES['photo']['type'], array('image/jpeg','image/gif','image/png')) ){
               $errors[] = 'your photo must be a JPG, GIF or PNG';
           }
-      } else{
+      }
+      else{
           $errors[]='you have to add a photo';
       }
 
       if(empty($errors) )
       {
-          Article::addArticle($title, $content, $category_id, $photo);
-          setFlashMessage("Article added ");
-
-          AppController::toArticleManager();
+          if(Article::addArticle($title, $content, $category_id, $photo)) {
+              if(!empty($tag_id) ){
+                  $article_id = Article::getId('photo', $photo);//on récupère l'article qu'on vien de créer grace a son nom photo(unique) pour avoir son id.
+                  foreach ($tag_id as $tag) {
+                      Article::addTag($article_id, $tag);
+                  }
+              }
+              setFlashMessage("Article added ");
+            //   AppController::toArticleManager();
+          } else {
+              setFlashMessage("database error");
+            // AppController::toArticleManager();
+          }
 
         } else {//insert didn't work
             $message = implode('<br>', $errors);
             setFlashMessage($message);
-            AppController::toAddAricle();
+            AppController::toAddArticle();
         }
 
     }
 
     function updateArticle($id){
         $this->loadModel('Article');
+        if(!Article::get($id)){
+            AppController::toIndex();
+        }
         $this->loadModel('Category');
         $d['article'] = Article::get($id);
         $d['categories'] = Category::getAll();
@@ -107,7 +143,7 @@ class Articles extends AppController
     function verifUpdate(){
         $this->loadModel('Article');
 
-        array_filter($_POST, "self::secure_input");
+        array_filter($_POST, "AppController::secure_input");
         extract($_POST);
         $errors = [];
 

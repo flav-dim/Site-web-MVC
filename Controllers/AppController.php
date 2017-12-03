@@ -7,20 +7,7 @@ class AppController
     protected $vars = array();
     protected $layout = 'default';
 
-    // function __construct(){
-    //     if(isset($_POST)){
-    //         $this->data = $_POST;
-    //     }
-    //
-    //     if(isset($this->models)){
-    //         foreach($this->models as $mod){
-    //             $this->loadModel($mod);
-    //         }
-    //     }
-    // }
-
     public function loadModel($model){
-        //Loads the Database class so that it can be accessed in the controller by using $this->$model.
         require_once('../Models/'.$model.'.php');
         $this->model = new $model();
     }
@@ -66,7 +53,7 @@ class AppController
         // You have to use Dispatcher class.
     }
 
-    public static function secure_input($data){
+    public static function secure_input(&$data){
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
@@ -77,13 +64,20 @@ class AppController
         header('Location: '.RACINE.'/Home');
         die;
     }
-
+    public static function toUserManager(){//redirect to index page
+        header('Location: '.RACINE.'/Home/Admin/users/');
+        die;
+    }
     public static function toArticleManager(){
         header('Location: '.RACINE.'/Home/Admin/articles/');
         die;
     }
     public static function toCategoryManager(){
         header('Location: '.RACINE.'/Home/Admin/categories/');
+        die;
+    }
+    public static function toTagManager(){
+        header('Location: '.RACINE.'/Home/Admin/tags/');
         die;
     }
     public static function toCommentManager(){
@@ -106,6 +100,7 @@ class AppController
         header('Location: '.RACINE.'/Home/Articles/updateArticle/'.$id.'/');
         die;
     }
+
     public static function toAddCategory(){
         header('Location: '.RACINE.'/Home/Admin/newCategory/');
         die;
@@ -115,10 +110,15 @@ class AppController
         die;
     }
 
-    public static function toUserManager(){//redirect to index page
-        header('Location: '.RACINE.'/Home/Admin/users/');
+    public static function toUpdateTag($id){
+        header('Location: '.RACINE.'/Home/Articles/updateTag/'.$id.'/');
         die;
     }
+    public static function toAddTag(){
+        header('Location: '.RACINE.'/Home/Admin/newTag/');
+        die;
+    }
+
 
 
 

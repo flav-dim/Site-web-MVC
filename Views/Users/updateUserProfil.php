@@ -8,6 +8,7 @@
              Form::input_text('username', $usr['username']);
              Form::input_text('email', $usr['email']);
              Form::hidden('id', $_SESSION['user']['id']);
+             Form::hidden('user_group', $_SESSION['user']['user_group']);
         }
           ?>
 

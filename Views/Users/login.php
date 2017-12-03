@@ -1,3 +1,7 @@
+<?php
+displayFlashMessage();
+ ?>
+
 <h1>Login</h1>
 
 <div class="row">

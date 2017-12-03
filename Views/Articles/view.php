@@ -7,9 +7,15 @@ foreach ($article as $art) {
     echo "<p>".$art['content']."</p>";
     echo "<p>".$art['creation_date']."</p>";
 
+    if($tags){
+        foreach ($tags as $tag){
+            echo "<a href='".RACINE."/Home/Articles/indexTag/".$tag['tag_title']."/'>#".$tag['tag_title']."</a> ";
+        }
+    }
  ?>
-</div>
 
+</div>
+<!-- COMMENT FORM -->
  <div class="row">
      <?php if(Admin::isUserConnected()) : ?>
         <form class="col s12" action="<?=RACINE?>/Home/Comments/verif/" method="post">
@@ -31,6 +37,7 @@ foreach ($article as $art) {
   </div>
 <?php
 } ?>
+<!-- COMMENTS AREA -->
 <div class="card">
     <table class="highlight">
         <?php

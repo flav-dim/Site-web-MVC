@@ -129,6 +129,9 @@ class User
          }
      }
      public static function delete($id){
+        $query = Db::connect()->prepare("DELETE FROM comments WHERE user_id = ?");
+        $query->execute(array($id));
+
         $query = Db::connect()->prepare("DELETE FROM users WHERE id = ?");
         if ($query->execute(array($id)))
         {

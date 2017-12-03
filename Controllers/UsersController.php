@@ -81,7 +81,7 @@ class Users extends AppController
        {
            User::addUser($username, $password, $email, $user_group);
            setFlashMessage("user added ");
-           if(Admin::isUserWriter()){
+           if(Admin::isUserAdmin()){
                AppController::toUserManager();
            } else {
                $this->render('login');//show login page

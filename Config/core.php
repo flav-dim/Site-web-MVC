@@ -15,11 +15,6 @@ include_once '../dispatcher.php';
 include_once '../Src/router.php';
 include_once '../Models/Form.php';
 
-$Articles = Articles::getInstance();
-$Users = Users::getInstance();
-$Admin = Admin::getInstance();
-$Categories = Categories::getInstance();
-
 if(isset($_COOKIE['user'] ) ){
     $_SESSION['user'] = unserialize($_COOKIE['user']);
 }

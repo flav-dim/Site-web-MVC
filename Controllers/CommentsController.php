@@ -29,7 +29,7 @@ class Comments extends AppController
     function verif(){
         $this->loadModel('Comment');
 
-        array_filter($_POST, "self::secure_input");
+        array_filter($_POST, "AppController::secure_input");
         extract($_POST);
         $errors = [];
 

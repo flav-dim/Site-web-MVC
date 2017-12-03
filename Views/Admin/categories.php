@@ -11,18 +11,24 @@ Admin::adminSecurity();
     </thead>
     <tbody>
         <?php
-        foreach ($categories as $cat) {
-            ?>
-            <tr>
-                <td><?=$cat['cat_title']?></td>
+        if($categories){
+            foreach ($categories as $cat) {
+                ?>
+                <tr>
+                    <td><a href="<?=RACINE?>/Home/Articles/indexCat/<?=$cat['cat_title']?>/">
+                        <?=$cat['cat_title']?></a>
+                    </td>
 
-                <td>
-                    <a href="<?=RACINE.'/Home/Admin/updateCategory/'.$cat['id']?>/" title="Update Category"><i class="material-icons">create</i></a>
-                    <a href="<?=RACINE.'/Home/Categories/delete/'.$cat['id']?>/" title="Delete Category"><i class="material-icons">delete</i></a>
-                </td>
-            </tr>
+                    <td>
+                        <a href="<?=RACINE.'/Home/Admin/updateCategory/'.$cat['id']?>/" title="Update Category"><i class="material-icons">create</i></a>
+                        <a href="<?=RACINE.'/Home/Categories/delete/'.$cat['id']?>/" title="Delete Category"><i class="material-icons">delete</i></a>
+                    </td>
+                </tr>
 
-            <?php
+                <?php
+            }//end foreach...
+        } else {
+            echo "<p> no Category for now </p>";
         }
         ?>
     </tbody>

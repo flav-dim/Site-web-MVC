@@ -45,7 +45,7 @@
              </div>
            </div>
        </a>
-       <a href="<?=RACINE?>/Home/Admin/comments/">
+       <a href="<?=RACINE?>/Home/Admin/tags/">
            <div class="col s12 m4">
              <div class="card green lighten-1">
                <div class="card-content white-text">

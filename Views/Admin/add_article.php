@@ -14,7 +14,7 @@ if (isset($_POST)) {
           ?>
           <div class="input-field col s12 m6">
                <select name="category_id">
-                   <option selected>Choose your option</option>
+                   <option value="">Choose your option</option>
                    <?php foreach ($categories as $cat) : ?>
                        <option value="<?=$cat['id']?>"><?=ucfirst($cat['cat_title'])?></option>
                    <?php endforeach; ?>
@@ -27,6 +27,15 @@ if (isset($_POST)) {
          <?php
          Form::input_textarea('content', $content);
           ?>
+          <div class="input-field col s12 m6">
+               <select name="tag_id[]" multiple>
+                   <option value="">Choose your option</option>
+                   <?php foreach ($tags as $tag) : ?>
+                       <option value="<?=$tag['id']?>"><?=ucfirst($tag['tag_title'])?></option>
+                   <?php endforeach; ?>
+               </select>
+               <label for="category_id">Tag</label>
+          </div>
 
      </div>
      <div class="file-field input-field s6 m6">

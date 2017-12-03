@@ -44,6 +44,13 @@ class Admin extends AppController
         $this->set($d);
         $this->render('categories');//inclu les info dans indx
     }
+    function tags(){
+        $d = array();
+        $this->loadModel('Tag');
+        $d['tags'] = Tag::getAll();
+        $this->set($d);
+        $this->render('tags');//inclu les info dans indx
+    }
     function comments(){
         $d = array();
         $this->loadModel('Comment');
@@ -62,6 +69,8 @@ class Admin extends AppController
     function newArticle(){
         $this->loadModel('Category');
         $d['categories'] = Category::getAll();
+        $this->loadModel('Tag');
+        $d['tags'] = Tag::getAll();
         $this->set($d);
         $this->render('add_article');
     }
@@ -74,6 +83,9 @@ class Admin extends AppController
 
     function newCategory(){
         $this->render('add_category');
+    }
+    function newTag(){
+        $this->render('add_tag');
     }
 
     // function updateCat(){

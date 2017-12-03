@@ -14,7 +14,7 @@
             <nav class="black">
                 <div class="container">
                   <div class="nav-wrapper">
-                    <a href="index.php" class="brand-logo">Super Site</a>
+                    <a href="<?=RACINE?>/Home" class="brand-logo">Super Site</a>
                     <a href="#!" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><a href="<?=RACINE?>/Home">Home</a><li>
@@ -22,6 +22,8 @@
                             <li><a href="<?=RACINE?>/Home/Admin/index/">Aministration</a></li>
                             <li><a href="<?=RACINE?>/Home/Admin/categories/">Categories</a><li>
                             <li><a href="<?=RACINE?>/Home/Admin/users/">Users</a><li>
+                            <li><a href="<?=RACINE?>/Home/Admin/tags/">Tags</a><li>
+
                         <?php endif; ?>
                         <?php if(Admin::isUserWriter()) :?>
                             <li><a href="<?=RACINE?>/Home/Admin/articles/">Articles</a><li>
@@ -36,7 +38,7 @@
 
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
-                    <li><a href="<?=RACINE?>/Home">Home</a><li>
+                        <li><a href="<?=RACINE?>/Home">Home</a><li>
                         <?php if(Admin::isUserAdmin()) :?>
                             <li><a href="<?=RACINE?>/Home/Admin/index/">Aministration</a></li>
                             <li><a href="<?=RACINE?>/Home/Admin/categories/">Categories</a><li>

@@ -18,7 +18,7 @@ class Categories extends AppController
 
     function verif(){
         $this->loadModel('Category');
-        array_filter($_POST, "self::secure_input");
+        array_filter($_POST, "AppController::secure_input");
         extract($_POST);
         $errors = [];
 
@@ -49,7 +49,7 @@ class Categories extends AppController
     }
     function verifUpdate(){
         $this->loadModel('Category');
-        array_filter($_POST, "self::secure_input");
+        array_filter($_POST, "AppController::secure_input");
         extract($_POST);
         $errors = [];
 

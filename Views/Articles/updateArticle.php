@@ -10,7 +10,6 @@ Admin::writerSecurity();
              Form::input_text('title', $art['title']);
              Form::input_textarea('content', $art['content']);
              Form::hidden('id', $art['id']);
-
           ?>
           <div class="input-field col s12 m6">
                <select name="category_id">
@@ -24,6 +23,16 @@ Admin::writerSecurity();
                </select>
                <label for="category_id">Category</label>
           </div>
+
+          <?php
+          $tag_titles=[];
+          foreach ($tags as $key) {
+              $tag_titles[] = $key['tag_title'];
+          }
+
+          $tag = implode(' ', $tag_titles);
+          Form::input_textarea('tag', $tag);
+          ?>
       <?php } ?>
      </div>
 

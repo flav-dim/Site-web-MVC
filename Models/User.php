@@ -41,9 +41,9 @@ class User
 
         if(!empty($result)){
             if( password_verify($password, $result['password']) ){
-                if(isset($remember_me) ){
-                    my_cookie("user", $result);
-                }
+                // if(isset($remember_me) ){
+                //     my_cookie("user", $result);
+                // }
                 $_SESSION['user'] = $result;
                 AppController::toIndex();
             } else {

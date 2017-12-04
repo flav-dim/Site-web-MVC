@@ -17,11 +17,41 @@ class Articles extends AppController
       return self::$_instance;
     }
 
-    function index(){
+    function index($order = null){
         $d = array();
         $this->loadModel('Article');//fait un require de la page Models/Article
         $d['articles'] = Article::getAll();
+        if($order != null){
+            if(in_array($order, array('title_asc', 'title_desc', 'date_asc', 'date_desc') ) ){
+                switch ($order) {
+                    case 'title_asc':
+                        $order = 'title ASC';
+                        break;
+                    case 'date_asc':
+                        $order = 'modif_date ASC';
+                        break;
+                    case 'title_desc':
+                        $order = 'title DESC';
+                        break;
+                    case 'date_desc':
+                        $order = 'modif_date DESC';
+                        break;
 
+                    default:
+                        break;
+                }
+            }
+            $d['articles'] = Article::getAll($order);
+            $this->set($d);//rajoute dans l'array vars
+            $this->loadModel('Category');//fait un require de la page Models/Category
+            $d['categories'] = Category::getAll();
+            $d['authors'] = Article::getAllAuthors();
+
+            $this->set($d);
+            $this->layout = 'sideBar';
+            $this->render('../Home/home');
+            return;
+        }
         $this->set($d);//rajoute dans l'array vars
         $this->render('index');//inclu les info dans indx
 
@@ -149,11 +179,14 @@ class Articles extends AppController
 
     function updateArticle($id){
         $this->loadModel('Article');
+        $this->loadModel('Tag');
+
         if(!Article::get($id)){
             AppController::toIndex();
         }
         $this->loadModel('Category');
         $d['article'] = Article::get($id);
+        $d['tags'] = Article::getAllArticleTags($id);
         $d['categories'] = Category::getAll();
         $this->set($d);
         $this->render('updateArticle');
@@ -161,6 +194,7 @@ class Articles extends AppController
 
     function verifUpdate(){
         $this->loadModel('Article');
+        $this->loadModel('Tag');
 
         array_filter($_POST, "AppController::secure_input");
         extract($_POST);
@@ -179,8 +213,29 @@ class Articles extends AppController
 
       if(empty($errors) )
       {
-          if(Article::update($id, $title, $content, $category_id)){
+          if($tag){
+              Tag::delete($id);
+              $tag_id = [];
+              $tag_title = explode(' ', $tag);
+              array_filter($tag_title, 'AppController::secure_input');
+              foreach ($tag_title as $key => $tag_name) {
+                  if(!Tag::verify_name($tag_name)){
+                      Tag::add($tag_name);
+                  }
 
+              }
+              foreach ($tag_title as $key => $value) {
+                  $tag_id[] = Tag::getId('tag_title', $value);
+              }
+          }
+
+          if(Article::update($id, $title, $content, $category_id)){
+              if(!empty($tag_id) ){
+                  $article_id = $id;
+                  foreach ($tag_id as $tag) {
+                      Article::addTag($article_id, $tag);
+                  }
+              }
               AppController::toArticleManager();
           } else {
               setFlashMessage("database error");

@@ -1,8 +1,15 @@
 <?php include_once '../Views/Layouts/top.php' ?>
-<h1>Side Bar</h1>
 <div class="row">
     <div class="col s12 m3">
         <input type="search" name="searchBar" value="" placeholder="Search">
+        <p>Order by title
+            <a href="<?=RACINE?>/Home/Articles/index/title_asc/" class="sort sortTitle"> <i class="small material-icons">arrow_drop_up</i></a>
+            <a href="<?=RACINE?>/Home/Articles/index/title_desc/" class="sort sortTitle"> <i class="small material-icons">arrow_drop_down</i></a>
+        </p>
+        <p>Order by date
+            <a href="<?=RACINE?>/Home/Articles/index/date_asc/" class="sort sortDate"><i class="small material-icons">arrow_drop_up</i></a>
+            <a href="<?=RACINE?>/Home/Articles/index/date_desc/" class="sort sortDate"><i class="small material-icons">arrow_drop_down</i></a>
+        </p>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header"><i class="material-icons">list</i>Categories</div>

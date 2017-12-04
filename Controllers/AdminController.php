@@ -121,8 +121,8 @@ class Admin extends AppController
     }
 
     public static function userSecurity(){
-        if(!Admin::isUserConnected() ){
-            toLogin();
+        if(Admin::isUserConnected() ){
+            AppController::toIndex();
         }
     }
 

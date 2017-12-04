@@ -3,11 +3,11 @@
 class Article
 {
 
-    public static function getAll(){
+    public static function getAll($order = "modif_date DESC"){
         $query = Db::connect()->prepare("SELECT a.*, c.cat_title
             FROM articles a
             JOIN categories c ON a.category_id = c.id
-            ORDER BY modif_date DESC");//order by
+            ORDER BY $order ");//order by
         $query->execute();
         $result = $query->fetchAll();
 
@@ -24,6 +24,21 @@ class Article
             JOIN  articles_tags at ON a.id = at.article_id
             JOIN  tags t ON t.id = at.tag_id
             WHERE article_id = ?");//order by
+        $query->execute(array($id));
+        $result = $query->fetchAll();
+
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+
+    }
+    public static function getAllArticleTags($id){
+        $query = Db::connect()->prepare("SELECT t.*
+            FROM tags t
+            JOIN articles_tags at ON t.id = at.tag_id
+            WHERE article_id = ?");
         $query->execute(array($id));
         $result = $query->fetchAll();
 
@@ -94,11 +109,20 @@ class Article
         }
 
     }
-    public static function update($id, $title, $content, $category_id, $photo){
-        $query = Db::connect()->prepare("UPDATE articles SET title = ?, content= ?, modif_date = ?, category_id = ?, photo = ? WHERE id = ?");
+    public static function deleteTag($article_id){
+        $query = Db::connect()->prepare("DELETE FROM articles_tags WHERE article_id = ?");
 
+        if ($query->execute(array($article_id ) ) ) {
+            return true;
+        } else {
+            return false;
+        }
 
-        if ($query->execute(array($title, $content, date('Y-m-d H:i:s'), $category_id, $photo, $id ) ) ) {
+    }
+    public static function update($id, $title, $content, $category_id){
+        $query = Db::connect()->prepare("UPDATE articles SET title = ?, content= ?, modif_date = ?, category_id = ? WHERE id = ?");
+
+        if ($query->execute(array($title, $content, date('Y-m-d H:i:s'), $category_id, $id ) ) ) {
             return true;
         } else {
             return false;

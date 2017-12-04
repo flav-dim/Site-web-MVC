@@ -16,17 +16,27 @@ class Home extends AppController
 
       return self::$_instance;
     }
-     function index(){
+     function index($order = null){
          $d = array();
          $this->loadModel('Article');//fait un require de la page Models/Article
          $this->loadModel('Category');//fait un require de la page Models/Category
          $d['articles'] = Article::getAll();
+         
          $d['categories'] = Category::getAll();
          $d['authors'] = Article::getAllAuthors();
+
          $this->set($d);
          $this->layout = 'sideBar';
          $this->render('home');
      }
+
+    //  function order($sort){
+    //      $d = array();
+    //      $this->loadModel('Search');//fait un require de la page Models/Article
+    //      $d['sort'] = Search::sortBy($sort);
+    //      $this->set($d);
+    //
+    //  }
 
 
 

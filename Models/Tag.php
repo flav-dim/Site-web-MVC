@@ -106,9 +106,9 @@ class Tag
     }
 
     public static function delete($id){
-        $query = Db::connect()->prepare("DELETE FROM articles_tags WHERE tag_id = ?");
+        $query = Db::connect()->prepare("DELETE FROM articles_tags WHERE article_id = ?");
         $query->execute(array($id));
-        
+
        $query = Db::connect()->prepare("DELETE FROM tags WHERE id = ?");
        if ($query->execute(array($id)))
        {

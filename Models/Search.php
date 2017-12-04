@@ -34,7 +34,7 @@ class Search
     //     }
     // }
 
-    public function sortBy($sort){
+    public function sortByTitle($sort){
         if($sort){
 
             $query = "SELECT * FROM articles ORDER BY $sort";

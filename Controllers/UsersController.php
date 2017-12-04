@@ -36,14 +36,12 @@ class Users extends AppController
                  AppController::toUserManager();
              } else {
                  $this->set($d);
-                 $this->layout = 'super';
                  $this->render('view');
              }
          }
      }
 
      function newUser(){
-        $this->layout = 'super';
         $this->render('inscription');
      }
 

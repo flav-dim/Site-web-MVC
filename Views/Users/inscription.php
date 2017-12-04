@@ -1,3 +1,5 @@
+<?php
+// AdminController::userSecurity(); ?>
 <h1>Inscription</h1>
 <div class="row">
    <form class="col s12" action="<?=RACINE?>/Home/Users/verif/" method="post">

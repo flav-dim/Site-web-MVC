@@ -21,9 +21,9 @@ class Article
     public static function getAllTags($id){
         $query = Db::connect()->prepare("SELECT a.*, t.tag_title, at.tag_id
             FROM articles a
-            JOIN  article_tags at ON a.id = at.articles_id
+            JOIN  articles_tags at ON a.id = at.article_id
             JOIN  tags t ON t.id = at.tag_id
-            WHERE articles_id = ?");//order by
+            WHERE article_id = ?");//order by
         $query->execute(array($id));
         $result = $query->fetchAll();
 
@@ -70,7 +70,7 @@ class Article
 
     }
     public static function addTag($article_id, $tag_id){
-        $query = Db::connect()->prepare("INSERT INTO article_tags (articles_id, tag_id)VALUES (?, ?)");
+        $query = Db::connect()->prepare("INSERT INTO articles_tags (article_id, tag_id)VALUES (?, ?)");
 
         if ($query->execute(array($article_id, $tag_id ) ) ) {
             return true;
@@ -94,7 +94,7 @@ class Article
     public static function delete($id){
         $query = Db::connect()->prepare("DELETE FROM comments WHERE article_id = ?");
         $query->execute(array($id));
-        
+
        $query = Db::connect()->prepare("DELETE FROM articles WHERE id = ?");
        if ($query->execute(array($id)))
        {

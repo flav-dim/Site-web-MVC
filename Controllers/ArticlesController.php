@@ -114,10 +114,10 @@ class Articles extends AppController
                   }
               }
               setFlashMessage("Article added ");
-            //   AppController::toArticleManager();
+              AppController::toArticleManager();
           } else {
               setFlashMessage("database error");
-            // AppController::toArticleManager();
+            AppController::toArticleManager();
           }
 
         } else {//insert didn't work

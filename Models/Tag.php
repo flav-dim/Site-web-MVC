@@ -19,7 +19,7 @@ class Tag
         $tag_id = Tag::getId('tag_title', $tag_title);
         $query = Db::connect()->prepare("SELECT a.*
             FROM articles a
-            JOIN article_tags at ON at.articles_id = a.id
+            JOIN articles_tags at ON at.article_id = a.id
             WHERE at.tag_id= ?");//order by
         $query->execute(array($tag_id));
         $result = $query->fetchAll();
@@ -106,7 +106,7 @@ class Tag
     }
 
     public static function delete($id){
-        $query = Db::connect()->prepare("DELETE FROM article_tags WHERE tag_id = ?");
+        $query = Db::connect()->prepare("DELETE FROM articles_tags WHERE tag_id = ?");
         $query->execute(array($id));
         
        $query = Db::connect()->prepare("DELETE FROM tags WHERE id = ?");

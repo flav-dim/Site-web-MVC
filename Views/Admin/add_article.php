@@ -1,6 +1,6 @@
 <?php
 Admin::writerSecurity();
-$title = $content = "";
+$title = $content = $tag= "";
 if (isset($_POST)) {
     extract($_POST);
 }
@@ -11,6 +11,7 @@ if (isset($_POST)) {
      <div class="row">
          <?php
          Form::input_text('title', $title);
+         Form::hidden('author_id', $_SESSION['user']['id']);
           ?>
           <div class="input-field col s12 m6">
                <select name="category_id">
@@ -26,16 +27,10 @@ if (isset($_POST)) {
      <div class="row">
          <?php
          Form::input_textarea('content', $content);
+         Form::input_textarea('tag', $tag);
           ?>
-          <div class="input-field col s12 m6">
-               <select name="tag_id[]" multiple>
-                   <option value="">Choose your option</option>
-                   <?php foreach ($tags as $tag) : ?>
-                       <option value="<?=$tag['id']?>"><?=ucfirst($tag['tag_title'])?></option>
-                   <?php endforeach; ?>
-               </select>
-               <label for="category_id">Tag</label>
-          </div>
+          <!-- tags -->
+
 
      </div>
      <div class="file-field input-field s6 m6">

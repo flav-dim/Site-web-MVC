@@ -19,8 +19,12 @@ class Home extends AppController
      function index(){
          $d = array();
          $this->loadModel('Article');//fait un require de la page Models/Article
+         $this->loadModel('Category');//fait un require de la page Models/Category
          $d['articles'] = Article::getAll();
+         $d['categories'] = Category::getAll();
+         $d['authors'] = Article::getAllAuthors();
          $this->set($d);
+         $this->layout = 'sideBar';
          $this->render('home');
      }
 

@@ -1,7 +1,6 @@
 <?php
 class Search
 {
-
     public function byName($name){
         $name = "%$name%";
         $query =  Db::connect()->prepare(

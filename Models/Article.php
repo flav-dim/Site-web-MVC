@@ -34,6 +34,21 @@ class Article
         }
 
     }
+    public static function getAllAuthors(){
+        $query = Db::connect()->prepare("SELECT DISTINCT u.*
+            FROM articles a
+            JOIN  users u ON a.author_id = u.id"
+            );
+        $query->execute();
+        $result = $query->fetchAll();
+
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+
+    }
     public static function get($id){
         $query = Db::connect()->prepare("SELECT * FROM articles WHERE id = ?");
         $query->execute(array($id));
@@ -58,11 +73,11 @@ class Article
         }
 
     }
-    public static function addArticle($title, $content, $category_id, $photo){
-        $query = Db::connect()->prepare("INSERT INTO articles (title, content, creation_date, modif_date, category_id, photo)VALUES (?, ?,?,?, ?, ?)");
+    public static function addArticle($title, $content, $category_id, $photo, $author_id){
+        $query = Db::connect()->prepare("INSERT INTO articles (title, content, creation_date, modif_date, category_id, photo, author_id)VALUES (?, ?,?,?, ?, ?, ?)");
 
 
-        if ($query->execute(array($title, $content, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'),$category_id, $photo ) ) ) {
+        if ($query->execute(array($title, $content, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'),$category_id, $photo, $author_id ) ) ) {
             return true;
         } else {
             return false;

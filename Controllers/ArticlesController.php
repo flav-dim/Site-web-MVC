@@ -21,6 +21,7 @@ class Articles extends AppController
         $d = array();
         $this->loadModel('Article');//fait un require de la page Models/Article
         $d['articles'] = Article::getAll();
+
         $this->set($d);//rajoute dans l'array vars
         $this->render('index');//inclu les info dans indx
 
@@ -51,7 +52,9 @@ class Articles extends AppController
             $d = array();
             $this->loadModel('Article');
             $this->loadModel('Comment');
+            $this->loadModel('User');
             $d['article'] = Article::get($id);
+            $d['writer'] = User::get($d['article'][0]['author_id']);
             $d['comments'] = Comment::get($id);
             $d['tags'] = Article::getAllTags($id);
             if(empty($d['article'])){//si l'article n'existe pas
@@ -66,6 +69,7 @@ class Articles extends AppController
 
     function verif(){
         $this->loadModel('Article');
+        $this->loadModel('Tag');
 
         extract($_POST);
         $errors = [];
@@ -106,7 +110,22 @@ class Articles extends AppController
 
       if(empty($errors) )
       {
-          if(Article::addArticle($title, $content, $category_id, $photo)) {
+          if($tag){
+              $tag_id = [];
+              $tag_title = explode(' ', $tag);
+              array_filter($tag_title, 'AppController::secure_input');
+              foreach ($tag_title as $key => $tag_name) {
+                  if(!Tag::verify_name($tag_name)){
+                      Tag::add($tag_name);
+                  }
+
+              }
+              foreach ($tag_title as $key => $value) {
+                  $tag_id[] = Tag::getId('tag_title', $value);
+              }
+          }
+
+          if(Article::addArticle($title, $content, $category_id, $photo, $author_id)) {
               if(!empty($tag_id) ){
                   $article_id = Article::getId('photo', $photo);//on récupère l'article qu'on vien de créer grace a son nom photo(unique) pour avoir son id.
                   foreach ($tag_id as $tag) {

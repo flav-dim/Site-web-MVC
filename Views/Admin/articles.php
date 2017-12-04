@@ -22,7 +22,9 @@ Admin::writerSecurity();
                             <?=$art['title']?>
                         </a>
                     </td>
-                    <td><?=$art['cat_title']?></td>
+                    <td><a href="<?=RACINE?>/Home/Articles/indexCat/<?=$art['cat_title']?>/">
+                        <?=$art['cat_title']?></a>
+                    </td>
                     <td><?=$art['modif_date']?></td>
                     <td>
                         <a href="<?=RACINE.'/Home/Articles/updateArticle/'.$art['id']?>/" title="Update Article"><i class="material-icons">create</i></a>

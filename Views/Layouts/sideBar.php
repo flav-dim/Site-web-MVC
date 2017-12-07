@@ -43,6 +43,22 @@
 
             </li>
         </ul>
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><i class="material-icons">cloud</i>Popular Tags</div>
+                <div class="collapsible-body">
+                <ul>
+                    <li><h5><a href="#" class="showAll">All</a></h5></li>
+                    <?php foreach ($popularTags as $tag): ?>
+                        <li><h5>
+                            <a href="<?=RACINE?>/Home/Articles/indexTag/<?=$tag['tag_title']?>/"><?=$tag['tag_title']?></a>
+                        </h5></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            </li>
+        </ul>
     </div>
     <div class="col s12 m9">
         <?php echo $content_for_layout ?>

@@ -55,6 +55,24 @@ class Tag
         }
 
     }
+    public static function mostPopular($nb = 10){
+        $query = Db::connect()->prepare("SELECT tag_title, tag_id, COUNT(*) AS popular
+        FROM articles_tags
+        JOIN tags
+        ON tags.id = articles_tags.tag_id
+        GROUP BY tag_id
+        ORDER BY popular DESC 
+        LIMIT $nb");
+        $query->execute();
+        $result = $query->fetchAll();
+
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+
+    }
 
     public static function add($tag_title){
         $query = Db::connect()->prepare("INSERT INTO tags (tag_title)VALUES (?)");

@@ -25,7 +25,6 @@
                   <li><a class="grey-text text-lighten-3" href="<?=RACINE?>/Home">Home</a></li>
 
                   <li><a class="grey-text text-lighten-3" href="<?=RACINE?>/Home/Users/profil/">Profil</a></li>
-                  <li><a class="grey-text text-lighten-3" href="<?=RACINE?>/Home/Users/logout/">Logout</a><li>
 
                 </ul>
 

@@ -35,7 +35,7 @@ class User
         $query->execute(array($email));
         $result = $query->fetch();
         if($result['status'] == true ){//si il est banni, on empeche la connection
-            setFlashMessage('You\'re account has been desactivated ');
+            setFlashMessage('You\'re account has been desactivated ', 'error');
             AppController::toIndex();
         }
 
@@ -47,11 +47,11 @@ class User
                 $_SESSION['user'] = $result;
                 AppController::toIndex();
             } else {
-                setFlashMessage("Wrong Password");
+                setFlashMessage("Wrong Password", 'error');
                 return false;
             }
         } else {
-            setFlashMessage("Wrong email");
+            setFlashMessage("Wrong email", 'error');
             return false;
         }
     }

@@ -20,6 +20,7 @@ class Articles extends AppController
     function index($order = null){
         $d = array();
         $this->loadModel('Article');//fait un require de la page Models/Article
+        $this->loadModel('Tag');
         $d['articles'] = Article::getAll();
         if($order != null){
             if(in_array($order, array('title_asc', 'title_desc', 'date_asc', 'date_desc') ) ){
@@ -62,6 +63,7 @@ class Articles extends AppController
             AppController::toIndex();
         }
         $d['articles'] = Tag::getAllArticles($tag_title);
+        $d['tags'] = Tag::getAll();
         $this->set($d);
         $this->render('index');
     }

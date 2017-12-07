@@ -41,6 +41,10 @@ class Admin extends AppController
         $d = array();
         $this->loadModel('Category');
         $d['categories'] = Category::getAll();
+        foreach ($d['categories'] as $categories) {
+
+            $d['articles'][$categories['cat_title']] = Category::getAllArticles($categories['cat_title']);
+        }
         $this->set($d);
         $this->render('categories');//inclu les info dans indx
     }
@@ -48,6 +52,10 @@ class Admin extends AppController
         $d = array();
         $this->loadModel('Tag');
         $d['tags'] = Tag::getAll();
+        foreach ($d['tags'] as $tags) {
+
+            $d['articles'][$tags['tag_title']] = Tag::getAllArticles($tags['tag_title']);
+        }
         $this->set($d);
         $this->render('tags');//inclu les info dans indx
     }

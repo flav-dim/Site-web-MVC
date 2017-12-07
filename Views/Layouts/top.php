@@ -36,8 +36,6 @@
 
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
 
-                        <li><a href="<?=RACINE?>/Home">Home</a><li>
-
                         <?php if(Admin::isUserAdmin()) :?>
 
                             <li><a href="<?=RACINE?>/Home/Admin/index/">Administration</a></li>
@@ -45,10 +43,6 @@
                             <li><a href="<?=RACINE?>/Home/Admin/categories/">Categories</a><li>
 
                             <li><a href="<?=RACINE?>/Home/Admin/users/">Users</a><li>
-
-                            <li><a href="<?=RACINE?>/Home/Admin/tags/">Tags</a><li>
-
-
 
                         <?php endif; ?>
 

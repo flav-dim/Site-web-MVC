@@ -15,7 +15,29 @@ Admin::adminSecurity();
             foreach ($tags as $tag) {
                 ?>
                 <tr>
-                    <td><?=$tag['tag_title']?></td>
+                    <td><ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">cloud</i><?=$tag['tag_title']?></div>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <?php if($articles[$tag['tag_title']]){
+                                        foreach ($articles[$tag['tag_title']] as $art) {
+                                            ?>
+                                        <li>
+                                            <a href="<?=RACINE.'/Home/Articles/view/'.$art['id']?>/" title="See Article">
+                                                <?=$art['title']?>
+                                            </a>
+                                        </li>
+                                        <?php
+
+                                            }
+                                        } else {
+                                            echo "<p>No articles for now</p>";
+                                        }?>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul></td>
 
                     <td>
                         <a href="<?=RACINE.'/Home/Tags/delete/'.$tag['id']?>/" title="Delete Tag"><i class="material-icons">delete</i></a>

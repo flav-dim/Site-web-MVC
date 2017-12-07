@@ -1,3 +1,8 @@
+<?php
+if(!Admin::isUserConnected()){
+    AppController::toIndex();
+}
+ ?>
 <h1>Profil <?php echo $_SESSION['user']['username'] ?> </h1>
 
 <table class="highlight">

@@ -20,10 +20,11 @@ class Home extends AppController
          $d = array();
          $this->loadModel('Article');//fait un require de la page Models/Article
          $this->loadModel('Category');//fait un require de la page Models/Category
+         $this->loadModel('Tag');//fait un require de la page Models/Category
          $d['articles'] = Article::getAll();
-         
          $d['categories'] = Category::getAll();
          $d['authors'] = Article::getAllAuthors();
+         $d['popularTags'] = Tag::mostPopular();
 
          $this->set($d);
          $this->layout = 'sideBar';

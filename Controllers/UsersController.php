@@ -16,14 +16,14 @@ class Users extends AppController
       return self::$_instance;
     }
 
-     function index(){
-         $d = array();
-         $this->loadModel('User');
-         $d['users'] = User::getAll();
-         $this->set($d);
-         $this->render('index');
-
-     }
+    //  function index(){
+    //      $d = array();
+    //      $this->loadModel('User');
+    //      $d['users'] = User::getAll();
+    //      $this->set($d);
+    //      $this->render('index');
+     //
+    //  }
 
      function view($id = null){
          if ($id == null) {
@@ -86,7 +86,7 @@ class Users extends AppController
            }
          } else {//insert didn't work
              $message = implode('<br>', $errors);
-             setFlashMessage($message);
+             setFlashMessage($message, 'error');
              if(Admin::isUserWriter()){
                  $this->render('../Admin/inscription');//show inscription
 
@@ -137,13 +137,13 @@ class Users extends AppController
                setFlashMessage("Account modified");
                AppController::toUserManager();
            } else {
-               setFlashMessage("database error");
+               setFlashMessage("database error", 'error');
                AppController::toUserManager();
 
            }
          } else {//insert didn't work
              $message = implode('<br>',$errors);
-             setFlashMessage($message);
+             setFlashMessage($message, 'error');
              AppController::toUpdateUser($id);//show inscription
          }
 
@@ -153,7 +153,11 @@ class Users extends AppController
          $this->loadModel('User');
          $this->render('login');
          if(!empty($_POST)){
-            User::logIn($_POST);//checks input
+            if(User::logIn($_POST) == "password"){//checks input
+                setFlashMessage("Wrong Password", 'error');
+            } else {
+                setFlashMessage("Wrong Email", 'error');
+            }
          }
      }
 

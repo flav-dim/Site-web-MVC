@@ -1,5 +1,5 @@
 <?php
-// AdminController::userSecurity();
+Admin::userSecurity();
 displayFlashMessage();
  ?>
 

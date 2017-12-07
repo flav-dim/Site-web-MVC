@@ -22,7 +22,7 @@ nav .brand-logo{
 	font-family: nevis;
 }
 
-nav ul a{
+nav ul a, nav a{
 	color: #000000;
 }
 
@@ -74,6 +74,22 @@ a.sort {
     top: 0; /*required as well.*/
 
 }
-
+.btn{
+    margin: 5px;
+}
 
 /*******flash message*/
+.alert-success{
+    padding : 10px;
+    margin : 10px;
+    border-radius: 4px;
+    text-align: center;
+    background-color:  #81d4fa;
+}
+.alert-error{
+    padding : 10px;
+    margin : 10px;
+    border-radius: 4px;
+    text-align: center;
+    background-color:  #ef9a9a;
+}

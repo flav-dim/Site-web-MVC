@@ -126,7 +126,7 @@ class Articles extends AppController
 
           $photo = uniqid().'_'.$_FILES['photo']['name'];// uniqid crée un id unique pour chaque photo
 
-          move_uploaded_file($_FILES['photo']['tmp_name'], "/home/kay/Rendu/PHP_Rush_MVC/Webroot/Img/".$photo);// on déplace l'img dans le dossier Img
+          move_uploaded_file($_FILES['photo']['tmp_name'], "/home/flavien/Rendu/PHP_Rush_MVC/Webroot/Img/".$photo);// on déplace l'img dans le dossier Img
 
           if ($_FILES['photo']['size'] >1000000) {
               $errors[]= 'your photo can\'t be more than 1Mo';

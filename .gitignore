@@ -1,2 +1,2 @@
-/Webroot/Img
-db.php
+Webroot/Img/*
+config/db.php
